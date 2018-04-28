@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */; };
 		8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD720941C5C00628949 /* AppDelegate.swift */; };
 		8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD920941C5C00628949 /* ViewController.swift */; };
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD420941C5C00628949 /* BaymaxBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaymaxBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD720941C5C00628949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE87BD920941C5C00628949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		8FE87BDE20941C5E00628949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FE87BE120941C5E00628949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FE87BE320941C5E00628949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.debug.xcconfig"; sourceTree = "<group>"; };
+		F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3127086EF207F5D3167B630E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */,
+				F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8C8553CC48BB5AA092C0E134 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8FE87BCB20941C5C00628949 = {
 			isa = PBXGroup;
 			children = (
 				8FE87BD620941C5C00628949 /* BaymaxBot */,
 				8FE87BD520941C5C00628949 /* Products */,
+				3127086EF207F5D3167B630E /* Pods */,
+				8C8553CC48BB5AA092C0E134 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8FE87BE620941C5E00628949 /* Build configuration list for PBXNativeTarget "BaymaxBot" */;
 			buildPhases = (
+				76061BCAA8EDFB649CDDAD7C /* [CP] Check Pods Manifest.lock */,
 				8FE87BD020941C5C00628949 /* Sources */,
 				8FE87BD120941C5C00628949 /* Frameworks */,
 				8FE87BD220941C5C00628949 /* Resources */,
+				26348D6ADA25474FF97B1762 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26348D6ADA25474FF97B1762 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76061BCAA8EDFB649CDDAD7C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BaymaxBot-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8FE87BD020941C5C00628949 /* Sources */ = {
@@ -278,14 +343,12 @@
 		};
 		8FE87BE720941C5E00628949 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -295,14 +358,12 @@
 		};
 		8FE87BE820941C5E00628949 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

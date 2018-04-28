@@ -1,0 +1,6 @@
+framework module Pods_BaymaxBot {
+  umbrella header "Pods-BaymaxBot-umbrella.h"
+
+  export *
+  module * { export * }
+}
