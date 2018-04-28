@@ -6,6 +6,6 @@ target 'BaymaxBot' do
   use_frameworks!
 
   # Pods for BaymaxBot
-  pod 'JSQMessagesViewController'
+  pod 'MessageKit'
 
 end
