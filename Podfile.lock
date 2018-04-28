@@ -1,25 +1,33 @@
 PODS:
+  - JSQMessagesViewController (7.3.5):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
   - MessageKit (0.13.5)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
 
 DEPENDENCIES:
+  - JSQMessagesViewController
   - MessageKit
   - RxCocoa
   - RxSwift
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - JSQMessagesViewController
+    - JSQSystemSoundPlayer
     - MessageKit
     - RxCocoa
     - RxSwift
 
 SPEC CHECKSUMS:
+  JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   MessageKit: c4bd50e285a0f0761bc23a2e982aa7840873c4f5
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
 
-PODFILE CHECKSUM: dfd701ab86a3e9582713a11c894ddeed563d9f0e
+PODFILE CHECKSUM: 725483b1b8b0c460ce766b7867b7a5161b24fe15
 
 COCOAPODS: 1.5.0
