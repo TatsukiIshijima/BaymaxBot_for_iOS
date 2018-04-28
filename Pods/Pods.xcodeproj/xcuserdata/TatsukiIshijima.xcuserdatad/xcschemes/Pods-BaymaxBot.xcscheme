@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7184518C48A7764C5775CE6251981FBC"
+               BlueprintIdentifier = "DD1B774DC74E00AD227C1089C64A315B"
                BlueprintName = "Pods-BaymaxBot"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "Pods-BaymaxBot.framework">
