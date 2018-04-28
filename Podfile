@@ -7,6 +7,7 @@ target 'BaymaxBot' do
 
   # Pods for BaymaxBot
   pod 'MessageKit'
+  pod 'JSQMessagesViewController'
   pod 'RxSwift'
   pod 'RxCocoa'
 
