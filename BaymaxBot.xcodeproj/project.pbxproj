@@ -14,7 +14,6 @@
 		8FE87BDF20941C5E00628949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDE20941C5E00628949 /* Assets.xcassets */; };
 		8FE87BE220941C5E00628949 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BE020941C5E00628949 /* LaunchScreen.storyboard */; };
 		8FEE408B20959B100091CBE4 /* WetherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE408A20959B100091CBE4 /* WetherModel.swift */; };
-		8FEE408D2095A0B40091CBE4 /* WetherApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE408C2095A0B40091CBE4 /* WetherApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		8FE87BE120941C5E00628949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FE87BE320941C5E00628949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FEE408A20959B100091CBE4 /* WetherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetherModel.swift; sourceTree = "<group>"; };
-		8FEE408C2095A0B40091CBE4 /* WetherApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetherApi.swift; sourceTree = "<group>"; };
 		F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.debug.xcconfig"; sourceTree = "<group>"; };
 		F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 		8FEE408820959ACD0091CBE4 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				8FEE408C2095A0B40091CBE4 /* WetherApi.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 			files = (
 				8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */,
 				8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */,
-				8FEE408D2095A0B40091CBE4 /* WetherApi.swift in Sources */,
 				8FEE408B20959B100091CBE4 /* WetherModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,19 +9,4 @@
 //
 
 import Foundation
-import Himotoki
 
-struct WetherModel: Himotoki.Decodable {
-    let title: String           // タイトル
-    let description: String     // 説明
-    let today: String           // 今日
-    let tomorrow: String        // 明日
-    
-    static func decode(_ e: Extractor) throws -> WetherModel {
-        return try WetherModel(
-            title: e <| "title",
-            description: e <| "description",
-            today: e <| "today",
-            tomorrow: e <| "tomorrow")
-    }
-}
