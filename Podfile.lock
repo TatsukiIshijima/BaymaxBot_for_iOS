@@ -1,13 +1,19 @@
 PODS:
+  - APIKit (3.2.1):
+    - Result (~> 3.0)
+  - Himotoki (3.1.0)
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - MessageKit (0.13.5)
+  - Result (3.2.4)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
 
 DEPENDENCIES:
+  - APIKit
+  - Himotoki
   - JSQMessagesViewController
   - MessageKit
   - RxCocoa
@@ -15,19 +21,25 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - APIKit
+    - Himotoki
     - JSQMessagesViewController
     - JSQSystemSoundPlayer
     - MessageKit
+    - Result
     - RxCocoa
     - RxSwift
 
 SPEC CHECKSUMS:
+  APIKit: a39ff72ac44efc15513fd1b98800f63c525be61b
+  Himotoki: b09643fa5456d49bda43d0fb4e30dfa79e37f72f
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   MessageKit: c4bd50e285a0f0761bc23a2e982aa7840873c4f5
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
 
-PODFILE CHECKSUM: 725483b1b8b0c460ce766b7867b7a5161b24fe15
+PODFILE CHECKSUM: d92f6da00b1129eb3cc7ee3086b15939731de5ca
 
 COCOAPODS: 1.5.0
