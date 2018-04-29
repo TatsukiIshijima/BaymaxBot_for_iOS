@@ -8,5 +8,20 @@
 // RxSwift学習用のサンプルモデル
 //
 
-import Foundation
+import ObjectMapper
+
+class WetherModel: Mappable {
+    
+    var title: String?                  // タイトル
+    var link: String?                   // リンク
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        title<-map["title"]
+        link<-map["link"]
+    }
+}
 
