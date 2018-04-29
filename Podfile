@@ -10,5 +10,7 @@ target 'BaymaxBot' do
   pod 'JSQMessagesViewController'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'APIKit'
+  pod 'Himotoki'
 
 end
