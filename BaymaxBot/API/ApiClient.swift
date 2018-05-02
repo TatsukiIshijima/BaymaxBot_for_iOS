@@ -28,6 +28,7 @@ class ApiClient {
                     print("Title: \(String(describing: weatherModel?.title))")
                     print("LinK: \(String(describing: weatherModel?.link))")
                     print("Description Text: \(String(describing: weatherModel?.description?.text))")
+                    print("Forecasts Count: \(String(describing: weatherModel?.forecasts?.count))")
                     break
                 case .failure:
                     print("Failure: \(String(describing: response.error))")

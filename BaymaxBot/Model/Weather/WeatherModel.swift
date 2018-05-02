@@ -15,6 +15,7 @@ class WeatherModel: Mappable {
     var title: String?                  // タイトル
     var link: String?                   // リンク
     var description: Description?       // 詳細
+    var forecasts: [Forecast]?          // 予報日毎の府県天気予報
     
     required init?(map: Map) { }
     
@@ -22,6 +23,7 @@ class WeatherModel: Mappable {
         title<-map["title"]
         link<-map["link"]
         description<-map["description"]
+        forecasts<-map["forecasts"]
     }
 }
 
