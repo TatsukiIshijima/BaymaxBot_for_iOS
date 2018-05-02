@@ -17,6 +17,8 @@ class ViewController: JSQMessagesViewController {
     var incomingAvatar: JSQMessagesAvatarImage!
     var outgoingAvatar: JSQMessagesAvatarImage!
     
+    var apiClient: ApiClient!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,8 @@ class ViewController: JSQMessagesViewController {
         
         // メッセージデータの初期化
         self.messages = []
+        
+        self.apiClient = ApiClient()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +57,8 @@ class ViewController: JSQMessagesViewController {
         self.finishReceivingMessage(animated: true)
         
         receiveAutoMessage()
+        
+        apiClient.weatherRequest()
     }
     
     // 添付ボタン押下
@@ -92,7 +98,6 @@ class ViewController: JSQMessagesViewController {
     
     // 返信メッセージを受信する
     func receiveAutoMessage() {
-        // ここで落ちてる
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didFinishMessageTimer), userInfo: nil, repeats: false)
     }
     

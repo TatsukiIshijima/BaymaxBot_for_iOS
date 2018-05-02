@@ -13,7 +13,9 @@
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
 		8FE87BDF20941C5E00628949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDE20941C5E00628949 /* Assets.xcassets */; };
 		8FE87BE220941C5E00628949 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BE020941C5E00628949 /* LaunchScreen.storyboard */; };
-		8FEE408B20959B100091CBE4 /* WetherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE408A20959B100091CBE4 /* WetherModel.swift */; };
+		8FEE408B20959B100091CBE4 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE408A20959B100091CBE4 /* WeatherModel.swift */; };
+		8FEE40912095C3E70091CBE4 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE40902095C3E70091CBE4 /* ApiClient.swift */; };
+		8FEE40942095E7090091CBE4 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE40932095E7090091CBE4 /* Description.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +27,9 @@
 		8FE87BDE20941C5E00628949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FE87BE120941C5E00628949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8FE87BE320941C5E00628949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8FEE408A20959B100091CBE4 /* WetherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WetherModel.swift; sourceTree = "<group>"; };
+		8FEE408A20959B100091CBE4 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		8FEE40902095C3E70091CBE4 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		8FEE40932095E7090091CBE4 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.debug.xcconfig"; sourceTree = "<group>"; };
 		F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaymaxBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaymaxBot/Pods-BaymaxBot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +107,7 @@
 		8FEE408820959ACD0091CBE4 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				8FEE40902095C3E70091CBE4 /* ApiClient.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -110,9 +115,18 @@
 		8FEE408920959AE30091CBE4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8FEE408A20959B100091CBE4 /* WetherModel.swift */,
+				8FEE40922095E6DD0091CBE4 /* Weather */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8FEE40922095E6DD0091CBE4 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				8FEE408A20959B100091CBE4 /* WeatherModel.swift */,
+				8FEE40932095E7090091CBE4 /* Description.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,7 +255,9 @@
 			files = (
 				8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */,
 				8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */,
-				8FEE408B20959B100091CBE4 /* WetherModel.swift in Sources */,
+				8FEE40942095E7090091CBE4 /* Description.swift in Sources */,
+				8FEE408B20959B100091CBE4 /* WeatherModel.swift in Sources */,
+				8FEE40912095C3E70091CBE4 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +406,10 @@
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -407,7 +426,10 @@
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

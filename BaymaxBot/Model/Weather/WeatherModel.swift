@@ -10,18 +10,18 @@
 
 import ObjectMapper
 
-class WetherModel: Mappable {
+class WeatherModel: Mappable {
     
     var title: String?                  // タイトル
     var link: String?                   // リンク
+    var description: Description?       // 詳細
     
-    required init?(map: Map) {
-        
-    }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         title<-map["title"]
         link<-map["link"]
+        description<-map["description"]
     }
 }
 
