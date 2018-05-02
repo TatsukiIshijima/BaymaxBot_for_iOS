@@ -13,14 +13,21 @@ class ApiClient {
     
     private let weatherBaseUrl = "http://weather.livedoor.com/forecast/webservice/json/v1"
     private var weatherParameters = [
-        "city": "130010"
+        "city": "130010"                // 東京
     ]
     
-    func weatherRequest() {
-        Alamofire.request(self.weatherBaseUrl, method: .get, parameters: self.weatherParameters).responseJSON { response in
+    func weatherRequest(cityCode: String) {
+        weatherParameters["city"] = cityCode
+        Alamofire.request(self.weatherBaseUrl, method: .get, parameters: self.weatherParameters).responseJSON
+            { (response:DataResponse<Any>) in
             switch response.result {
                 case .success:
-                    print("Success: \(String(describing: response.result.value))")
+                    print("Success!!")
+                    
+                    let weatherModel = Mapper<WeatherModel>().map(JSONObject: response.result.value)
+                    print("Title: \(String(describing: weatherModel?.title))")
+                    print("LinK: \(String(describing: weatherModel?.link))")
+                    print("Description Text: \(String(describing: weatherModel?.description?.text))")
                     break
                 case .failure:
                     print("Failure: \(String(describing: response.error))")

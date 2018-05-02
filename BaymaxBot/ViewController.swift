@@ -58,7 +58,7 @@ class ViewController: JSQMessagesViewController {
         
         receiveAutoMessage()
         
-        apiClient.weatherRequest()
+        apiClient.weatherRequest(cityCode: "140010")
     }
     
     // 添付ボタン押下
