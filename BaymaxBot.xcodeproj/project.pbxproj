@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */; };
+		8F01F567209990270003C69D /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F01F566209990270003C69D /* Forecast.swift */; };
 		8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD720941C5C00628949 /* AppDelegate.swift */; };
 		8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD920941C5C00628949 /* ViewController.swift */; };
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		8FE87BD420941C5C00628949 /* BaymaxBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaymaxBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD720941C5C00628949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE87BD920941C5C00628949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				8FEE408A20959B100091CBE4 /* WeatherModel.swift */,
 				8FEE40932095E7090091CBE4 /* Description.swift */,
+				8F01F566209990270003C69D /* Forecast.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F01F567209990270003C69D /* Forecast.swift in Sources */,
 				8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */,
 				8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */,
 				8FEE40942095E7090091CBE4 /* Description.swift in Sources */,
