@@ -8,6 +8,8 @@
 
 import Alamofire
 import ObjectMapper
+import RxSwift
+import RxCocoa
 
 class ApiClient {
     
@@ -34,6 +36,23 @@ class ApiClient {
                     print("Failure: \(String(describing: response.error))")
                     break
             }
+        }
+    }
+    
+    func weatherRequestRx(cityCode: String) -> Observable<WeatherModel> {
+        return Observable.create { (observer: AnyObserver<WeatherModel>) in
+            Alamofire.request(self.weatherBaseUrl, method: .get, parameters: self.weatherParameters).responseJSON
+                { (response:DataResponse<Any>) in
+                    switch response.result {
+                        case .success:
+                            let weatherModel = Mapper<WeatherModel>().map(JSONObject: response.result.value)
+                            observer.onNext(weatherModel!)
+                            observer.onCompleted()
+                        case .failure(let error):
+                            observer.onError(error)
+                    }
+                }
+            return Disposables.create()
         }
     }
 }

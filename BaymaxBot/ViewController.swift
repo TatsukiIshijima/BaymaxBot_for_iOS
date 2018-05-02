@@ -56,9 +56,14 @@ class ViewController: JSQMessagesViewController {
         // メッセージの送信完了
         self.finishReceivingMessage(animated: true)
         
-        receiveAutoMessage()
-        
-        apiClient.weatherRequest(cityCode: "140010")
+        //apiClient.weatherRequest(cityCode: "140010")
+        apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
+            print(weatherModel.title)
+        }, onError: { (error) in
+            print(error)
+        }, onCompleted:{
+            self.receiveAutoMessage()
+        })
     }
     
     // 添付ボタン押下
