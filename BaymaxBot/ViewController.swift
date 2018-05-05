@@ -58,11 +58,11 @@ class ViewController: JSQMessagesViewController {
         
         //apiClient.weatherRequest(cityCode: "140010")
         apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
-            print(weatherModel.title)
+            self.receiveAutoMessage(text: (weatherModel.description?.text)!)
         }, onError: { (error) in
             print(error)
         }, onCompleted:{
-            self.receiveAutoMessage()
+            
         })
     }
     
@@ -102,12 +102,14 @@ class ViewController: JSQMessagesViewController {
     }
     
     // 返信メッセージを受信する
-    func receiveAutoMessage() {
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didFinishMessageTimer), userInfo: nil, repeats: false)
+    func receiveAutoMessage(text: String) {
+        let userInfo = text
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didFinishMessageTimer), userInfo: userInfo, repeats: false)
     }
     
     @objc func didFinishMessageTimer(sender: Timer) {
-        let message = JSQMessage(senderId: "user2", displayName: "sample2", text: "Hello!")
+        let text = sender.userInfo as! String
+        let message = JSQMessage(senderId: "user2", displayName: "sample2", text: text)
         self.messages?.append(message!)
         self.finishReceivingMessage(animated: true)
     }
