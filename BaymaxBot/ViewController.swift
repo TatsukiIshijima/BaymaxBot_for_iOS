@@ -69,7 +69,7 @@ class ViewController: JSQMessagesViewController {
         guard let userId = self.userId else {
             return
         }
-        self.apiClient.replAiTalkRequestRx(appUserId: userId).subscribe(onNext: { (replModel) in
+        self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text).subscribe(onNext: { (replModel) in
             self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
         }, onError: { (error) in
             print(error)

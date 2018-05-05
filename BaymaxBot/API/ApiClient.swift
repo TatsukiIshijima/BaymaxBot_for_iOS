@@ -27,11 +27,11 @@ class ApiClient {
     private var replGetbotIdParameter = [
         "botId": ""                                 // ボットID
     ]
-    private var replTalkParameters = [
+    private var replTalkParameters: [String: Any] = [
         "appUserId": "",                            // ユーザーID
         "botId": "",                                // ボットID
         "voiceText": "",                            // 発話テキスト
-        "initTalkingFlag": "true" ,                 // 初回発話フラグ
+        "initTalkingFlag": true,                    // 初回発話フラグ
         "initTopicId": ""                           // シナリオID
     ]
     
@@ -44,7 +44,7 @@ class ApiClient {
             self.replTalkParameters["botId"] = botId
         }
         if let scenarioId = KeyManager().getValue(key: "scenarioId") as? String {
-            self.replTalkParameters["scenarioId"] = scenarioId
+            self.replTalkParameters["initTopicId"] = scenarioId
         }
     }
     
@@ -104,9 +104,10 @@ class ApiClient {
         }
     }
     
-    func replAiTalkRequestRx(appUserId: String) -> Observable<ReplModel> {
+    func replAiTalkRequestRx(appUserId: String, voiceText: String) -> Observable<ReplModel> {
         return Observable.create { (observer: AnyObserver<ReplModel>) in
             self.replTalkParameters["appUserId"] = appUserId
+            self.replTalkParameters["voiceText"] = voiceText
             Alamofire.request(self.replAiTalkUrl, method: .post, parameters: self.replTalkParameters, encoding: JSONEncoding.default,
                               headers: self.replHeaders).responseJSON{ (response: DataResponse<Any>) in
                                 switch response.result {
