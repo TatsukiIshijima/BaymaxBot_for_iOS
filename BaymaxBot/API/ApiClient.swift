@@ -69,6 +69,10 @@ class ApiClient {
         }
     }
     
+    /**
+     * お天気APIリクエスト
+     * @param   cityCode    都市コード
+     */
     func weatherRequestRx(cityCode: String) -> Observable<WeatherModel> {
         return Observable.create { (observer: AnyObserver<WeatherModel>) in
             Alamofire.request(self.weatherBaseUrl, method: .get, parameters: self.weatherParameters).responseJSON
@@ -86,6 +90,9 @@ class ApiClient {
         }
     }
     
+    /**
+     * ReplAI 初期化リクエスト
+     */
     func replAiInitRequestRx() -> Observable<UserId> {
         return Observable.create { (observer: AnyObserver<UserId>) in
             Alamofire.request(self.replAiRegistUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
@@ -104,10 +111,17 @@ class ApiClient {
         }
     }
     
-    func replAiTalkRequestRx(appUserId: String, voiceText: String) -> Observable<ReplModel> {
+    /**
+     * ReplAI 会話リクエスト
+     * param    appuserId       ユーザーID
+     * param    voiceText       発話テキスト
+     * param    initFlag        初期化フラグ
+     */
+    func replAiTalkRequestRx(appUserId: String, voiceText: String, initFlag: Bool) -> Observable<ReplModel> {
         return Observable.create { (observer: AnyObserver<ReplModel>) in
             self.replTalkParameters["appUserId"] = appUserId
             self.replTalkParameters["voiceText"] = voiceText
+            self.replTalkParameters["initTalkingFlag"] = initFlag
             Alamofire.request(self.replAiTalkUrl, method: .post, parameters: self.replTalkParameters, encoding: JSONEncoding.default,
                               headers: self.replHeaders).responseJSON{ (response: DataResponse<Any>) in
                                 switch response.result {

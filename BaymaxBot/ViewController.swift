@@ -39,15 +39,18 @@ class ViewController: JSQMessagesViewController {
         // メッセージデータの初期化
         self.messages = []
         
+        // ReplAI APIの初期化
         self.apiClient = ApiClient()
         self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
             self.userId = userId.userId
+            self.apiClient.replAiTalkRequestRx(appUserId: userId.userId!, voiceText: "init", initFlag: true).subscribe(onNext: { (replModel) in
+                self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
+            })
         }, onError: { (error) in
             print(error)
         }, onCompleted: {
             print("Init Completed!!")
         })
-        //self.apiClient.replAiInitRequest()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,23 +72,13 @@ class ViewController: JSQMessagesViewController {
         guard let userId = self.userId else {
             return
         }
-        self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text).subscribe(onNext: { (replModel) in
+        self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text, initFlag: false).subscribe(onNext: { (replModel) in
             self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
         }, onError: { (error) in
             print(error)
         }, onCompleted: {
             print("ReplAITalkRequest Completed!!")
         })
-        
-        /*
-        self.apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
-            self.receiveAutoMessage(text: (weatherModel.description?.text)!)
-        }, onError: { (error) in
-            print(error)
-        }, onCompleted:{
-            print("WeatherRequest Completed!!")
-        })
-        */
     }
     
     // 添付ボタン押下
