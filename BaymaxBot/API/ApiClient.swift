@@ -18,7 +18,8 @@ class ApiClient {
         "city": "130010"                // 東京
     ]
     
-    private let replAiBaseUrl = "https://api.repl-ai.jp/v1/registration"
+    private let replAiRegistUrl = "https://api.repl-ai.jp/v1/registration"
+    private let replAiTalkUrl = "https://api.repl-ai.jp/v1/dialogue"
     private var replHeaders:HTTPHeaders = [
         "Content-Type": "application/json",
         "x-api-key": ""                             // APIキー
@@ -30,15 +31,20 @@ class ApiClient {
         "appUserId": "",                            // ユーザーID
         "botId": "",                                // ボットID
         "voiceText": "",                            // 発話テキスト
-        "initTalkingFlag": "false"                  // 初回発話フラグ
+        "initTalkingFlag": "true" ,                 // 初回発話フラグ
+        "initTopicId": ""                           // シナリオID
     ]
     
     init() {
-        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
-            self.replHeaders["x-api-key"] = APIKEY
+        if let apiKey = KeyManager().getValue(key: "apiKey") as? String {
+            self.replHeaders["x-api-key"] = apiKey
         }
-        if let BotId = KeyManager().getValue(key: "botId") as? String {
-            self.replGetbotIdParameter["botId"] = BotId
+        if let botId = KeyManager().getValue(key: "botId") as? String {
+            self.replGetbotIdParameter["botId"] = botId
+            self.replTalkParameters["botId"] = botId
+        }
+        if let scenarioId = KeyManager().getValue(key: "scenarioId") as? String {
+            self.replTalkParameters["scenarioId"] = scenarioId
         }
     }
     
@@ -82,7 +88,7 @@ class ApiClient {
     
     func replAiInitRequestRx() -> Observable<UserId> {
         return Observable.create { (observer: AnyObserver<UserId>) in
-            Alamofire.request(self.replAiBaseUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
+            Alamofire.request(self.replAiRegistUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
                     switch response.result {
                         case .success:
                             let userId = Mapper<UserId>().map(JSONObject: response.result.value)
@@ -93,6 +99,27 @@ class ApiClient {
                             observer.onError(error)
                             break
                     }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func replAiTalkRequestRx(appUserId: String) -> Observable<ReplModel> {
+        return Observable.create { (observer: AnyObserver<ReplModel>) in
+            self.replTalkParameters["appUserId"] = appUserId
+            Alamofire.request(self.replAiTalkUrl, method: .post, parameters: self.replTalkParameters, encoding: JSONEncoding.default,
+                              headers: self.replHeaders).responseJSON{ (response: DataResponse<Any>) in
+                                switch response.result {
+                                    case .success:
+                                        let replModel = Mapper<ReplModel>().map(JSONObject: response.result.value)
+                                        print(response.result.value ?? "")
+                                        observer.onNext(replModel!)
+                                        observer.onCompleted()
+                                        break
+                                    case .failure(let error):
+                                        observer.onError(error)
+                                        break
+                                }
             }
             return Disposables.create()
         }

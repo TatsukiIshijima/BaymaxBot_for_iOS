@@ -18,7 +18,7 @@ class ViewController: JSQMessagesViewController {
     var outgoingAvatar: JSQMessagesAvatarImage!
     
     var apiClient: ApiClient!
-    var userId: UserId?
+    var userId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class ViewController: JSQMessagesViewController {
         
         self.apiClient = ApiClient()
         self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
-            self.userId = userId
+            self.userId = userId.userId
         }, onError: { (error) in
             print(error)
         }, onCompleted: {
@@ -65,6 +65,19 @@ class ViewController: JSQMessagesViewController {
         // メッセージの送信完了
         self.finishReceivingMessage(animated: true)
         
+        // ReplAIの対話API実行
+        guard let userId = self.userId else {
+            return
+        }
+        self.apiClient.replAiTalkRequestRx(appUserId: userId).subscribe(onNext: { (replModel) in
+            self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
+        }, onError: { (error) in
+            print(error)
+        }, onCompleted: {
+            print("ReplAITalkRequest Completed!!")
+        })
+        
+        /*
         self.apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
             self.receiveAutoMessage(text: (weatherModel.description?.text)!)
         }, onError: { (error) in
@@ -72,6 +85,7 @@ class ViewController: JSQMessagesViewController {
         }, onCompleted:{
             print("WeatherRequest Completed!!")
         })
+        */
     }
     
     // 添付ボタン押下
