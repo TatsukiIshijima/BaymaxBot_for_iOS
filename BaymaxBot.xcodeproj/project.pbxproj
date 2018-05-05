@@ -11,6 +11,9 @@
 		8F01F567209990270003C69D /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F01F566209990270003C69D /* Forecast.swift */; };
 		8F44E7BF209D730200056A78 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F44E7BE209D730200056A78 /* Keys.plist */; };
 		8F44E7C2209D73AF00056A78 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C1209D73AF00056A78 /* KeyManager.swift */; };
+		8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C4209D86AC00056A78 /* ReplModel.swift */; };
+		8F44E7C7209D86FC00056A78 /* UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C6209D86FC00056A78 /* UserId.swift */; };
+		8F44E7C9209D87CD00056A78 /* SystemText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C8209D87CD00056A78 /* SystemText.swift */; };
 		8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD720941C5C00628949 /* AppDelegate.swift */; };
 		8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD920941C5C00628949 /* ViewController.swift */; };
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
@@ -26,6 +29,9 @@
 		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		8F44E7BE209D730200056A78 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8F44E7C1209D73AF00056A78 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		8F44E7C4209D86AC00056A78 /* ReplModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplModel.swift; sourceTree = "<group>"; };
+		8F44E7C6209D86FC00056A78 /* UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserId.swift; sourceTree = "<group>"; };
+		8F44E7C8209D87CD00056A78 /* SystemText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemText.swift; sourceTree = "<group>"; };
 		8FE87BD420941C5C00628949 /* BaymaxBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaymaxBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD720941C5C00628949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE87BD920941C5C00628949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +81,16 @@
 				8F44E7C1209D73AF00056A78 /* KeyManager.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		8F44E7C3209D868800056A78 /* Repl */ = {
+			isa = PBXGroup;
+			children = (
+				8F44E7C4209D86AC00056A78 /* ReplModel.swift */,
+				8F44E7C6209D86FC00056A78 /* UserId.swift */,
+				8F44E7C8209D87CD00056A78 /* SystemText.swift */,
+			);
+			path = Repl;
 			sourceTree = "<group>";
 		};
 		8FE87BCB20941C5C00628949 = {
@@ -131,6 +147,7 @@
 		8FEE408920959AE30091CBE4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8F44E7C3209D868800056A78 /* Repl */,
 				8FEE40922095E6DD0091CBE4 /* Weather */,
 			);
 			path = Model;
@@ -272,11 +289,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F01F567209990270003C69D /* Forecast.swift in Sources */,
+				8F44E7C7209D86FC00056A78 /* UserId.swift in Sources */,
 				8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */,
 				8F44E7C2209D73AF00056A78 /* KeyManager.swift in Sources */,
 				8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */,
+				8F44E7C9209D87CD00056A78 /* SystemText.swift in Sources */,
 				8FEE40942095E7090091CBE4 /* Description.swift in Sources */,
 				8FEE408B20959B100091CBE4 /* WeatherModel.swift in Sources */,
+				8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */,
 				8FEE40912095C3E70091CBE4 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
