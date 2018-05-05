@@ -18,6 +18,7 @@ class ViewController: JSQMessagesViewController {
     var outgoingAvatar: JSQMessagesAvatarImage!
     
     var apiClient: ApiClient!
+    var userId: UserId?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,14 @@ class ViewController: JSQMessagesViewController {
         self.messages = []
         
         self.apiClient = ApiClient()
-        self.apiClient.replAiInitRequest()
+        self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
+            self.userId = userId
+        }, onError: { (error) in
+            print(error)
+        }, onCompleted: {
+            print("Init Completed!!")
+        })
+        //self.apiClient.replAiInitRequest()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,13 +65,12 @@ class ViewController: JSQMessagesViewController {
         // メッセージの送信完了
         self.finishReceivingMessage(animated: true)
         
-        //apiClient.weatherRequest(cityCode: "140010")
-        apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
+        self.apiClient.weatherRequestRx(cityCode: "140010").subscribe(onNext: { (weatherModel) in
             self.receiveAutoMessage(text: (weatherModel.description?.text)!)
         }, onError: { (error) in
             print(error)
         }, onCompleted:{
-            
+            print("WeatherRequest Completed!!")
         })
     }
     

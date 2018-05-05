@@ -80,17 +80,21 @@ class ApiClient {
         }
     }
     
-    func replAiInitRequest() {
-        Alamofire.request(self.replAiBaseUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
-            switch response.result {
-                case .success:
-                    print("Repl Init Success!")
-                    print(response.result.value ?? "")
-                    break
-                case .failure:
-                    print("Repl Init Failure...\(String(describing: response.error))")
-                    break
+    func replAiInitRequestRx() -> Observable<UserId> {
+        return Observable.create { (observer: AnyObserver<UserId>) in
+            Alamofire.request(self.replAiBaseUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
+                    switch response.result {
+                        case .success:
+                            let userId = Mapper<UserId>().map(JSONObject: response.result.value)
+                            observer.onNext(userId!)
+                            observer.onCompleted()
+                            break
+                        case .failure(let error):
+                            observer.onError(error)
+                            break
+                    }
             }
+            return Disposables.create()
         }
     }
 }
