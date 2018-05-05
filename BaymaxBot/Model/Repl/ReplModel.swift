@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class RelpModel: Mappable {
+class ReplModel: Mappable {
     
     var systemText: SystemText?             // システムからの返答一覧
     var serverSendTime: String?             // サーバがレスポンスを送信した時刻
