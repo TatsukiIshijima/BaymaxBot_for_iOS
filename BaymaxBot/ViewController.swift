@@ -39,6 +39,7 @@ class ViewController: JSQMessagesViewController {
         self.messages = []
         
         self.apiClient = ApiClient()
+        self.apiClient.replAiInitRequest()
     }
 
     override func didReceiveMemoryWarning() {

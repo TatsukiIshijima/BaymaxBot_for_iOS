@@ -18,6 +18,30 @@ class ApiClient {
         "city": "130010"                // 東京
     ]
     
+    private let replAiBaseUrl = "https://api.repl-ai.jp/v1/registration"
+    private var replHeaders:HTTPHeaders = [
+        "Content-Type": "application/json",
+        "x-api-key": ""                             // APIキー
+    ]
+    private var replGetbotIdParameter = [
+        "botId": ""                                 // ボットID
+    ]
+    private var replTalkParameters = [
+        "appUserId": "",                            // ユーザーID
+        "botId": "",                                // ボットID
+        "voiceText": "",                            // 発話テキスト
+        "initTalkingFlag": "false"                  // 初回発話フラグ
+    ]
+    
+    init() {
+        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
+            self.replHeaders["x-api-key"] = APIKEY
+        }
+        if let BotId = KeyManager().getValue(key: "botId") as? String {
+            self.replGetbotIdParameter["botId"] = BotId
+        }
+    }
+    
     func weatherRequest(cityCode: String) {
         weatherParameters["city"] = cityCode
         Alamofire.request(self.weatherBaseUrl, method: .get, parameters: self.weatherParameters).responseJSON
@@ -53,6 +77,20 @@ class ApiClient {
                     }
                 }
             return Disposables.create()
+        }
+    }
+    
+    func replAiInitRequest() {
+        Alamofire.request(self.replAiBaseUrl, method: .post, parameters: self.replGetbotIdParameter, encoding: JSONEncoding.default, headers: self.replHeaders).responseJSON { (response:DataResponse<Any>) in
+            switch response.result {
+                case .success:
+                    print("Repl Init Success!")
+                    print(response.result.value ?? "")
+                    break
+                case .failure:
+                    print("Repl Init Failure...\(String(describing: response.error))")
+                    break
+            }
         }
     }
 }
