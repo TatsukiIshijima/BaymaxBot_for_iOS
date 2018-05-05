@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */; };
 		8F01F567209990270003C69D /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F01F566209990270003C69D /* Forecast.swift */; };
+		8F44E7BF209D730200056A78 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F44E7BE209D730200056A78 /* Keys.plist */; };
 		8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD720941C5C00628949 /* AppDelegate.swift */; };
 		8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD920941C5C00628949 /* ViewController.swift */; };
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		8F44E7BE209D730200056A78 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8FE87BD420941C5C00628949 /* BaymaxBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaymaxBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD720941C5C00628949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE87BD920941C5C00628949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				8FE87BDE20941C5E00628949 /* Assets.xcassets */,
 				8FE87BE020941C5E00628949 /* LaunchScreen.storyboard */,
 				8FE87BE320941C5E00628949 /* Info.plist */,
+				8F44E7BE209D730200056A78 /* Keys.plist */,
 			);
 			path = BaymaxBot;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F44E7BF209D730200056A78 /* Keys.plist in Resources */,
 				8FE87BE220941C5E00628949 /* LaunchScreen.storyboard in Resources */,
 				8FE87BDF20941C5E00628949 /* Assets.xcassets in Resources */,
 				8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */,
