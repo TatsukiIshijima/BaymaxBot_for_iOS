@@ -8,6 +8,7 @@
 
 import UIKit
 import JSQMessagesViewController
+import FirebaseDatabase
 
 class ViewController: JSQMessagesViewController {
 
@@ -20,8 +21,13 @@ class ViewController: JSQMessagesViewController {
     var apiClient: ApiClient!
     var userId: String?
     
+    var refTV: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Firebase Databaseの設定
+        refTV = Database.database().reference().child("TV")
         
         // 自身のsenderId, senderDisplayNameの設定
         self.senderId = "user1"
@@ -39,7 +45,10 @@ class ViewController: JSQMessagesViewController {
         // メッセージデータの初期化
         self.messages = []
         
+        self.receiveAutoMessage(text: "こんにちは。わたしはベイマックス。あなたの健康を守ります。")
+        
         // ReplAI APIの初期化
+        /*
         self.apiClient = ApiClient()
         self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
             self.userId = userId.userId
@@ -51,6 +60,7 @@ class ViewController: JSQMessagesViewController {
         }, onCompleted: {
             print("Init Completed!!")
         })
+        */
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +78,19 @@ class ViewController: JSQMessagesViewController {
         // メッセージの送信完了
         self.finishReceivingMessage(animated: true)
         
+        if text == "テレビをつけて" {
+            // 同じデータを送信すると更新されないのでDBのデータを読み込み、反対のデータを送信する
+            self.refTV.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                let tvFlag: Bool = (snapshot.value as? Bool)!
+                self.refTV.setValue(!tvFlag)
+            })
+            self.receiveAutoMessage(text: "はい、テレビをつけますね。")
+        } else {
+            self.receiveAutoMessage(text: "すみません、わかりません。")
+        }
+        
+        
+        /*
         // ReplAIの対話API実行
         guard let userId = self.userId else {
             return
@@ -79,6 +102,7 @@ class ViewController: JSQMessagesViewController {
         }, onCompleted: {
             print("ReplAITalkRequest Completed!!")
         })
+         */
     }
     
     // 添付ボタン押下
