@@ -14,6 +14,7 @@
 		8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C4209D86AC00056A78 /* ReplModel.swift */; };
 		8F44E7C7209D86FC00056A78 /* UserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C6209D86FC00056A78 /* UserId.swift */; };
 		8F44E7C9209D87CD00056A78 /* SystemText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C8209D87CD00056A78 /* SystemText.swift */; };
+		8F98E97620C3E2EE00E2CF9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F98E97520C3E2EE00E2CF9D /* GoogleService-Info.plist */; };
 		8FE87BD820941C5C00628949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD720941C5C00628949 /* AppDelegate.swift */; };
 		8FE87BDA20941C5C00628949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE87BD920941C5C00628949 /* ViewController.swift */; };
 		8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE87BDB20941C5C00628949 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		8F44E7C4209D86AC00056A78 /* ReplModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplModel.swift; sourceTree = "<group>"; };
 		8F44E7C6209D86FC00056A78 /* UserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserId.swift; sourceTree = "<group>"; };
 		8F44E7C8209D87CD00056A78 /* SystemText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemText.swift; sourceTree = "<group>"; };
+		8F98E97520C3E2EE00E2CF9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FE87BD420941C5C00628949 /* BaymaxBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BaymaxBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FE87BD720941C5C00628949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FE87BD920941C5C00628949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				8FE87BE020941C5E00628949 /* LaunchScreen.storyboard */,
 				8FE87BE320941C5E00628949 /* Info.plist */,
 				8F44E7BE209D730200056A78 /* Keys.plist */,
+				8F98E97520C3E2EE00E2CF9D /* GoogleService-Info.plist */,
 			);
 			path = BaymaxBot;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			files = (
 				8F44E7BF209D730200056A78 /* Keys.plist in Resources */,
 				8FE87BE220941C5E00628949 /* LaunchScreen.storyboard in Resources */,
+				8F98E97620C3E2EE00E2CF9D /* GoogleService-Info.plist in Resources */,
 				8FE87BDF20941C5E00628949 /* Assets.xcassets in Resources */,
 				8FE87BDD20941C5C00628949 /* Main.storyboard in Resources */,
 			);
