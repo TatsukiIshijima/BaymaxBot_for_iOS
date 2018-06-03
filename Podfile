@@ -13,5 +13,5 @@ target 'BaymaxBot' do
   pod 'Alamofire'
   pod 'ObjectMapper'
   pod 'Firebase/Core'
-
+  pod 'Firebase/Database'
 end
