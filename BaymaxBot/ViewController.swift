@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import FirebaseDatabase
+import ApiAI
 
 class ViewController: JSQMessagesViewController {
 
@@ -22,12 +23,14 @@ class ViewController: JSQMessagesViewController {
     var userId: String?
     
     var refTV: DatabaseReference!
+    //var refSpeaker: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Firebase Databaseの設定
         refTV = Database.database().reference().child("TV")
+        //refSpeaker = Database.database().reference().child("SPEAKER")
         
         // 自身のsenderId, senderDisplayNameの設定
         self.senderId = "user1"
@@ -78,6 +81,26 @@ class ViewController: JSQMessagesViewController {
         // メッセージの送信完了
         self.finishReceivingMessage(animated: true)
         
+        /* Dialogflow */
+        let request = ApiAI.shared().textRequest()
+        if text != "" {
+            request?.query = text
+        } else {
+            return
+        }
+        request?.setMappedCompletionBlockSuccess( { (request, response) in
+            print("Success!")
+            let response = response as? AIResponse
+            if let textResponse = response?.result.fulfillment.speech {
+                self.receiveAutoMessage(text: textResponse)
+            }
+        }, failure: { (request, error) in
+            print(error)
+        })
+        ApiAI.shared().enqueue(request)
+        /* ----------- */
+        
+        /* Firebase DB 処理
         if text == "テレビをつけて" {
             // 同じデータを送信すると更新されないのでDBのデータを読み込み、反対のデータを送信する
             self.refTV.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
@@ -88,6 +111,7 @@ class ViewController: JSQMessagesViewController {
         } else {
             self.receiveAutoMessage(text: "すみません、わかりません。")
         }
+         */
         
         
         /*
