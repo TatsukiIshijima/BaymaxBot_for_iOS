@@ -14,4 +14,5 @@ target 'BaymaxBot' do
   pod 'ObjectMapper'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'ApiAI'
 end
