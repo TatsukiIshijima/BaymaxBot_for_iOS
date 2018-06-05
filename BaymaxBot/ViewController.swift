@@ -91,8 +91,9 @@ class ViewController: JSQMessagesViewController {
         request?.setMappedCompletionBlockSuccess( { (request, response) in
             print("Success!")
             let response = response as? AIResponse
-            if let textResponse = response?.result.fulfillment.speech {
-                self.receiveAutoMessage(text: textResponse)
+            if let textResponse = response?.result.fulfillment.messages {
+                let textResponseArray = textResponse[0] as NSDictionary
+                self.receiveAutoMessage(text: textResponseArray.value(forKey: "speech") as! String)
             }
         }, failure: { (request, error) in
             print(error)
