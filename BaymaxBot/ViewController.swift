@@ -22,15 +22,8 @@ class ViewController: JSQMessagesViewController {
     var apiClient: ApiClient!
     var userId: String?
     
-    var refTV: DatabaseReference!
-    //var refSpeaker: DatabaseReference!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Firebase Databaseの設定
-        refTV = Database.database().reference().child("TV")
-        //refSpeaker = Database.database().reference().child("SPEAKER")
         
         // 自身のsenderId, senderDisplayNameの設定
         self.senderId = "user1"
@@ -100,20 +93,6 @@ class ViewController: JSQMessagesViewController {
         })
         ApiAI.shared().enqueue(request)
         /* ----------- */
-        
-        /* Firebase DB 処理
-        if text == "テレビをつけて" {
-            // 同じデータを送信すると更新されないのでDBのデータを読み込み、反対のデータを送信する
-            self.refTV.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-                let tvFlag: Bool = (snapshot.value as? Bool)!
-                self.refTV.setValue(!tvFlag)
-            })
-            self.receiveAutoMessage(text: "はい、テレビをつけますね。")
-        } else {
-            self.receiveAutoMessage(text: "すみません、わかりません。")
-        }
-         */
-        
         
         /*
         // ReplAIの対話API実行
