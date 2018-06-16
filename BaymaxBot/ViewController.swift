@@ -16,6 +16,8 @@ class ViewController: MessagesViewController {
     //var userId: String?
     let userSender = Sender(id: "000000", displayName: "ユーザー")
     let baymaxSender = Sender(id: "111111", displayName: "ベイマックス")
+    let userAvator = Avatar(image: UIImage(named: "img_default"), initials: "ユーザー")
+    let baymaxAvator = Avatar(image: UIImage(named: "img_baymax"), initials: "ベイマックス")
     var messageList: [MessageModel] = []
     
     override func viewDidLoad() {
@@ -105,6 +107,19 @@ extension ViewController: MessagesDataSource {
 
 extension ViewController: MessagesDisplayDelegate {
     
+    // アバターの設定
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        switch message.sender {
+            case userSender:
+                avatarView.set(avatar: userAvator)
+                break
+            case baymaxSender:
+                avatarView.set(avatar: baymaxAvator)
+                break
+            default:
+                break
+        }
+    }
 }
 
 extension ViewController: MessagesLayoutDelegate {
