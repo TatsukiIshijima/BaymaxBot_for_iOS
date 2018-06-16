@@ -152,6 +152,14 @@ extension ViewController: MessageInputBarDelegate {
         inputBar.inputTextView.text = String()
         messagesCollectionView.scrollToBottom()
         
+        // 返信
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            let replyMessage = MessageModel(text: "リプライ", sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
+            self.messageList.append(replyMessage)
+            self.messagesCollectionView.insertSections([self.messageList.count - 1])
+            self.messagesCollectionView.scrollToBottom()
+        })
+        
         /* Dialogflow */
         /*
          let request = ApiAI.shared().textRequest()
