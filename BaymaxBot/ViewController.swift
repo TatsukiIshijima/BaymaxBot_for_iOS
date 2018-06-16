@@ -14,6 +14,9 @@ class ViewController: MessagesViewController {
     
     //var apiClient: ApiClient!
     //var userId: String?
+    let userSender = Sender(id: "000000", displayName: "ユーザー")
+    let baymaxSender = Sender(id: "111111", displayName: "ベイマックス")
+    var messageList: [MessageModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +35,13 @@ class ViewController: MessagesViewController {
         */
         
         messagesCollectionView.messagesDataSource = self
-        messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.messageCellDelegate = self
         messageInputBar.delegate = self
+        
+        messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+        scrollsToBottomOnKeybordBeginsEditing = true // default false
+        maintainPositionOnKeyboardFrameChanged = true // default false
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,23 +86,19 @@ class ViewController: MessagesViewController {
          */
 }
 
+// 送信元、メッセージ、日付などのデータ作成
 extension ViewController: MessagesDataSource {
+    
     func currentSender() -> Sender {
-        <#code#>
+        return self.userSender
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        <#code#>
+        return self.messageList[indexPath.section]
     }
     
     func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
-        <#code#>
-    }
-}
-
-extension ViewController: MessagesLayoutDelegate {
-    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        <#code#>
+        return self.messageList.count
     }
 }
 
@@ -114,5 +116,23 @@ extension ViewController: MessageLabelDelegate {
 
 extension ViewController: MessageInputBarDelegate {
     
+    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        
+        for component in inputBar.inputTextView.components {
+            
+            if let image = component as? UIImage {
+                let imageMessage = MessageModel(image: image, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
+                messageList.append(imageMessage)
+                messagesCollectionView.insertSections([messageList.count - 1])
+            } else if let text = component as? String {
+                let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.blue])
+                let message = MessageModel(attributedText: attributedText, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
+                messageList.append(message)
+                messagesCollectionView.insertSections([messageList.count - 1])
+            }
+        }
+        inputBar.inputTextView.text = String()
+        messagesCollectionView.scrollToBottom()
+    }
 }
 
