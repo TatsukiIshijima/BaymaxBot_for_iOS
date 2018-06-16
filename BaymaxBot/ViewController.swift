@@ -45,48 +45,20 @@ class ViewController: MessagesViewController {
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
         scrollsToBottomOnKeybordBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.main.async {
+                self.messageList.append(MessageModel.init(text: "こんにちは。わたしはベイマックス。あなたの健康を守ります。", sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date()))
+                self.messagesCollectionView.insertSections([self.messageList.count - 1])
+                self.messagesCollectionView.scrollToBottom()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
-
-        
-        /* Dialogflow */
-        /*
-        let request = ApiAI.shared().textRequest()
-        if text != "" {
-            request?.query = text
-        } else {
-            return
-        }
-        request?.setMappedCompletionBlockSuccess( { (request, response) in
-            print("Success!")
-            let response = response as? AIResponse
-            if let textResponse = response?.result.fulfillment.messages {
-                let textResponseArray = textResponse[0] as NSDictionary
-                self.receiveAutoMessage(text: textResponseArray.value(forKey: "speech") as! String)
-            }
-        }, failure: { (request, error) in
-            print(error)
-        })
-        ApiAI.shared().enqueue(request)
-         */
-        /* ----------- */
-    
-        /* ReplAIの対話API実行
-        guard let userId = self.userId else {
-            return
-        }
-        self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text, initFlag: false).subscribe(onNext: { (replModel) in
-            self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
-        }, onError: { (error) in
-            print(error)
-        }, onCompleted: {
-            print("ReplAITalkRequest Completed!!")
-        })
-         */
 }
 
 // 送信元、メッセージ、日付などのデータ作成
@@ -179,6 +151,41 @@ extension ViewController: MessageInputBarDelegate {
         }
         inputBar.inputTextView.text = String()
         messagesCollectionView.scrollToBottom()
+        
+        /* Dialogflow */
+        /*
+         let request = ApiAI.shared().textRequest()
+         if text != "" {
+         request?.query = text
+         } else {
+         return
+         }
+         request?.setMappedCompletionBlockSuccess( { (request, response) in
+         print("Success!")
+         let response = response as? AIResponse
+         if let textResponse = response?.result.fulfillment.messages {
+         let textResponseArray = textResponse[0] as NSDictionary
+         self.receiveAutoMessage(text: textResponseArray.value(forKey: "speech") as! String)
+         }
+         }, failure: { (request, error) in
+         print(error)
+         })
+         ApiAI.shared().enqueue(request)
+         */
+        /* ----------- */
+        
+        /* ReplAIの対話API実行
+         guard let userId = self.userId else {
+         return
+         }
+         self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text, initFlag: false).subscribe(onNext: { (replModel) in
+         self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
+         }, onError: { (error) in
+         print(error)
+         }, onCompleted: {
+         print("ReplAITalkRequest Completed!!")
+         })
+         */
     }
 }
 
