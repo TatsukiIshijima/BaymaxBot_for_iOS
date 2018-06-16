@@ -7,44 +7,17 @@
 //
 
 import UIKit
-import JSQMessagesViewController
-import FirebaseDatabase
+import MessageKit
 import ApiAI
 
-class ViewController: JSQMessagesViewController {
-
-    var messages: [JSQMessage]?
-    var incomingBubble: JSQMessagesBubbleImage!
-    var outgoingBubble: JSQMessagesBubbleImage!
-    var incomingAvatar: JSQMessagesAvatarImage!
-    var outgoingAvatar: JSQMessagesAvatarImage!
+class ViewController: MessagesViewController {
     
-    var apiClient: ApiClient!
-    var userId: String?
+    //var apiClient: ApiClient!
+    //var userId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 自身のsenderId, senderDisplayNameの設定
-        self.senderId = "user1"
-        self.senderDisplayName = "sample"
-        
-        // 吹き出しの設定
-        let bubbleFactory = JSQMessagesBubbleImageFactory()
-        self.incomingBubble = bubbleFactory?.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
-        self.outgoingBubble = bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleGreen())
-        
-        // アバターの設定 TODO：画像の用意
-        self.incomingAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "img_baymax"), diameter: 64)
-        self.outgoingAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "img_default"), diameter: 64)
-        
-        // メッセージデータの初期化
-        self.messages = []
-        
-        self.receiveAutoMessage(text: "こんにちは。わたしはベイマックス。あなたの健康を守ります。")
-        
-        // ReplAI APIの初期化
-        /*
+        /* ReplAI APIの初期化
         self.apiClient = ApiClient()
         self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
             self.userId = userId.userId
@@ -57,6 +30,12 @@ class ViewController: JSQMessagesViewController {
             print("Init Completed!!")
         })
         */
+        
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.messageCellDelegate = self
+        messageInputBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,17 +43,9 @@ class ViewController: JSQMessagesViewController {
         
     }
 
-    // sendボタン押下
-    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        
-        // 新しいメッセージデータを追加
-        let message = JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text)
-        self.messages?.append(message!)
-        
-        // メッセージの送信完了
-        self.finishReceivingMessage(animated: true)
         
         /* Dialogflow */
+        /*
         let request = ApiAI.shared().textRequest()
         if text != "" {
             request?.query = text
@@ -92,10 +63,10 @@ class ViewController: JSQMessagesViewController {
             print(error)
         })
         ApiAI.shared().enqueue(request)
+         */
         /* ----------- */
-        
-        /*
-        // ReplAIの対話API実行
+    
+        /* ReplAIの対話API実行
         guard let userId = self.userId else {
             return
         }
@@ -107,55 +78,41 @@ class ViewController: JSQMessagesViewController {
             print("ReplAITalkRequest Completed!!")
         })
          */
+}
+
+extension ViewController: MessagesDataSource {
+    func currentSender() -> Sender {
+        <#code#>
     }
     
-    // 添付ボタン押下
-    override func didPressAccessoryButton(_ sender: UIButton!) {
-        
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        <#code#>
     }
     
-    // アイテムごとに参照するメッセージデータを返す
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        return self.messages![indexPath.item]
+    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
+        <#code#>
     }
+}
+
+extension ViewController: MessagesLayoutDelegate {
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        <#code#>
+    }
+}
+
+extension ViewController: MessagesDisplayDelegate {
     
-    // アイテムごとの背景を返す
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
-        
-        let message = self.messages![indexPath.item]
-        if message.senderId == self.senderId {
-            return self.outgoingBubble
-        }
-        return self.incomingBubble
-    }
+}
+
+extension ViewController: MessageCellDelegate {
     
-    // アイテムごとのアバターを返す
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        
-        let message = self.messages![indexPath.item]
-        if message.senderId == self.senderId {
-            return self.outgoingAvatar
-        }
-        return self.incomingAvatar
-    }
+}
+
+extension ViewController: MessageLabelDelegate {
     
-    // アイテムの総数を返す
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.messages?.count)!
-    }
-    
-    // 返信メッセージを受信する
-    func receiveAutoMessage(text: String) {
-        let userInfo = text
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(didFinishMessageTimer), userInfo: userInfo, repeats: false)
-    }
-    
-    @objc func didFinishMessageTimer(sender: Timer) {
-        let text = sender.userInfo as! String
-        let message = JSQMessage(senderId: "user2", displayName: "sample2", text: text)
-        self.messages?.append(message!)
-        self.finishReceivingMessage(animated: true)
-    }
+}
+
+extension ViewController: MessageInputBarDelegate {
     
 }
 
