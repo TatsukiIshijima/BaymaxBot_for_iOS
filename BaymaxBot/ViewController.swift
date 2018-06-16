@@ -103,6 +103,11 @@ extension ViewController: MessagesDataSource {
     func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
         return self.messageList.count
     }
+    
+    // メッセージ下のテキスト
+    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedStringKey.foregroundColor: UIColor.darkGray])
+    }
 }
 
 extension ViewController: MessagesDisplayDelegate {
@@ -119,6 +124,15 @@ extension ViewController: MessagesDisplayDelegate {
             default:
                 break
         }
+    }
+    
+    // メッセージ下のラベル位置調整
+    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
+        guard let dataSource = messagesCollectionView.messagesDataSource else {
+            fatalError()
+        }
+        // 自分とそれ以外のユーザーでラベルの位置を調整
+        return dataSource.isFromCurrentSender(message: message) ? .messageTrailing(.zero) : .messageLeading(.zero)
     }
 }
 
