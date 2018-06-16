@@ -36,6 +36,10 @@ class ViewController: MessagesViewController {
         })
         */
         
+        self.navigationItem.title = "ベイマックス"
+        let settingButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(tapSettingButton))
+        self.navigationItem.setRightBarButton(settingButton, animated: true)
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -57,7 +61,10 @@ class ViewController: MessagesViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
+    }
+    
+    @objc func tapSettingButton() {
+        print("タップ")
     }
 }
 

@@ -19,8 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Navigationbar設定
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        window?.makeKeyAndVisible()
+        
+        // Firebase設定
         FirebaseApp.configure()
         
+        // ApiAI設定
         let configuration: AIConfiguration = AIDefaultConfiguration()
         configuration.clientAccessToken = KeyManager().getValue(key: "dialogflowToken") as? String 
         let apiai = ApiAI.shared()
