@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */; };
 		8F01F567209990270003C69D /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F01F566209990270003C69D /* Forecast.swift */; };
+		8F1AF33120D4D5EE00F3A4A7 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */; };
 		8F44E7BF209D730200056A78 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F44E7BE209D730200056A78 /* Keys.plist */; };
 		8F44E7C2209D73AF00056A78 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C1209D73AF00056A78 /* KeyManager.swift */; };
 		8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C4209D86AC00056A78 /* ReplModel.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		8F44E7BE209D730200056A78 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8F44E7C1209D73AF00056A78 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		8F44E7C4209D86AC00056A78 /* ReplModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplModel.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				8F44E7C3209D868800056A78 /* Repl */,
 				8FEE40922095E6DD0091CBE4 /* Weather */,
+				8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -247,8 +250,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ApiAI/ApiAI.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -261,8 +262,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApiAI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -308,6 +307,7 @@
 				8F44E7C9209D87CD00056A78 /* SystemText.swift in Sources */,
 				8FEE40942095E7090091CBE4 /* Description.swift in Sources */,
 				8FEE408B20959B100091CBE4 /* WeatherModel.swift in Sources */,
+				8F1AF33120D4D5EE00F3A4A7 /* MessageModel.swift in Sources */,
 				8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */,
 				8FEE40912095C3E70091CBE4 /* ApiClient.swift in Sources */,
 			);
