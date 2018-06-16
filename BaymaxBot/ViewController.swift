@@ -36,6 +36,7 @@ class ViewController: MessagesViewController {
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messageCellDelegate = self
         messageInputBar.delegate = self
         
@@ -106,11 +107,14 @@ extension ViewController: MessagesDisplayDelegate {
     
 }
 
-extension ViewController: MessageCellDelegate {
+extension ViewController: MessagesLayoutDelegate {
     
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 240
+    }
 }
 
-extension ViewController: MessageLabelDelegate {
+extension ViewController: MessageCellDelegate {
     
 }
 
