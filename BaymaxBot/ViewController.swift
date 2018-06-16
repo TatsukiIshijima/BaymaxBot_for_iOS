@@ -112,6 +112,19 @@ extension ViewController: MessagesDataSource {
 
 extension ViewController: MessagesDisplayDelegate {
     
+    // 背景色
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        guard let dataSource = messagesCollectionView.messagesDataSource else {
+            return UIColor.lightGray
+        }
+        return dataSource.isFromCurrentSender(message: message) ? UIColor(red: 15/255, green: 135/255, blue: 255/255, alpha: 1.0) : UIColor.lightGray
+    }
+    
+    // テキストカラー
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return UIColor.white
+    }
+    
     // アバターの設定
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         switch message.sender {
