@@ -10,4 +10,11 @@ Dialogflow でベイマックスが会話をしてくれる Bot
 iOS 10 ~
 
 ### ライブラリ
-* 随時更新
+| 名前 | 用途 |
+|:-----------|:------------|
+| [Firebase Realtime Database](https://firebase.google.com/docs/database/ios/start?hl=ja) | データベース |
+| [RxSwift](https://github.com/ReactiveX/RxSwift) | リアクティブ |
+| [Alamofire](https://github.com/Alamofire/Alamofire) | 通信 |
+| [ObjectMapper](https://github.com/Hearst-DD/ObjectMapper) | JSONデコーダー |
+| [MessageKit](https://github.com/MessageKit/MessageKit) | チャットUI |
+| [ApiAI](https://github.com/dialogflow/dialogflow-apple-client) | Dialogflow |
