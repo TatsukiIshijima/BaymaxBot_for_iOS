@@ -161,33 +161,26 @@ extension ViewController: MessageInputBarDelegate {
         
         // 返信
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            let replyMessage = MessageModel(text: "リプライ", sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
-            self.messageList.append(replyMessage)
-            self.messagesCollectionView.insertSections([self.messageList.count - 1])
-            self.messagesCollectionView.scrollToBottom()
+            // Dialogflow
+            let request = ApiAI.shared().textRequest()
+            if text != "" {
+                request?.query = text
+            }
+            request?.setMappedCompletionBlockSuccess({ (request, response) in
+                print("Success!")
+                let response = response as? AIResponse
+                if let textResponse = response?.result.fulfillment.messages {
+                    let textResponseArray = textResponse[0] as NSDictionary
+                    let replyMessage = MessageModel(text: textResponseArray.value(forKey: "speech") as! String, sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
+                    self.messageList.append(replyMessage)
+                    self.messagesCollectionView.insertSections([self.messageList.count - 1])
+                    self.messagesCollectionView.scrollToBottom()
+                }
+            }, failure: { (request, error) in
+                print("Failure...")
+            })
+            ApiAI.shared().enqueue(request)
         })
-        
-        /* Dialogflow */
-        /*
-         let request = ApiAI.shared().textRequest()
-         if text != "" {
-         request?.query = text
-         } else {
-         return
-         }
-         request?.setMappedCompletionBlockSuccess( { (request, response) in
-         print("Success!")
-         let response = response as? AIResponse
-         if let textResponse = response?.result.fulfillment.messages {
-         let textResponseArray = textResponse[0] as NSDictionary
-         self.receiveAutoMessage(text: textResponseArray.value(forKey: "speech") as! String)
-         }
-         }, failure: { (request, error) in
-         print(error)
-         })
-         ApiAI.shared().enqueue(request)
-         */
-        /* ----------- */
         
         /* ReplAIの対話API実行
          guard let userId = self.userId else {
