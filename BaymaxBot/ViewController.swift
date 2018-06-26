@@ -9,6 +9,7 @@
 import UIKit
 import MessageKit
 import ApiAI
+import Firebase
 
 class ViewController: MessagesViewController {
     
@@ -64,7 +65,8 @@ class ViewController: MessagesViewController {
     }
     
     @objc func tapSettingButton() {
-        print("タップ")
+        let token = Messaging.messaging().fcmToken
+        print("FCM token: \(token ?? "")")
     }
 }
 

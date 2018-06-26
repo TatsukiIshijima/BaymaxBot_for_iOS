@@ -30,6 +30,7 @@
 		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		8F3C14BD20E2700600A73673 /* BaymaxBot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BaymaxBot.entitlements; sourceTree = "<group>"; };
 		8F44E7BE209D730200056A78 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		8F44E7C1209D73AF00056A78 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		8F44E7C4209D86AC00056A78 /* ReplModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplModel.swift; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		8FE87BD620941C5C00628949 /* BaymaxBot */ = {
 			isa = PBXGroup;
 			children = (
+				8F3C14BD20E2700600A73673 /* BaymaxBot.entitlements */,
 				8F44E7C0209D739000056A78 /* Util */,
 				8FEE408920959AE30091CBE4 /* Model */,
 				8FEE408820959ACD0091CBE4 /* API */,
@@ -203,6 +205,11 @@
 				TargetAttributes = {
 					8FE87BD320941C5C00628949 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -456,11 +463,15 @@
 			baseConfigurationReference = F77160DC3E38859F451C1D58 /* Pods-BaymaxBot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BaymaxBot/BaymaxBot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -473,11 +484,15 @@
 			baseConfigurationReference = F86067CAF0174C8040319A74 /* Pods-BaymaxBot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BaymaxBot/BaymaxBot.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
