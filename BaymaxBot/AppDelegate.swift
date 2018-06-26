@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Message ID: \(messageID)")
         }
         
-        print(userInfo)
+        //print(userInfo)
     }
     
     // バックグラウンド状態で通知を受信した際、通知をタップした時に呼ばれる
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Message ID: \(messageID)")
         }
         
-        print(userInfo)
+        //print(userInfo)
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
@@ -99,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Received Push")
         
         let userInfo = notification.request.content.userInfo
         
@@ -108,12 +109,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("Message ID: \(messageID)")
         }
         
-        print(userInfo)
+        print("userInfo: \(userInfo)")
+        
+        if let aps = userInfo["aps"]  {
+            print("aps: \(aps)")
+            let aps = aps as! Dictionary<String, Any>
+            if let alert = aps["alert"] {
+                let alert = alert as! Dictionary<String, Any>
+                let title = alert["title"]
+                let body = alert["body"]
+                print("title: \(String(describing: title))")
+                print("body: \(String(describing: body))")
+            }
+        }
         
         completionHandler([])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Received Push")
         
         let userInfo = response.notification.request.content.userInfo
         
@@ -121,7 +135,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("Message ID: \(messageID)")
         }
         
-        print(userInfo)
+        print("userInfo: \(userInfo)")
+        
+        if let aps = userInfo["aps"] {
+            print("aps: \(aps)")
+        }
         
         completionHandler()
     }
