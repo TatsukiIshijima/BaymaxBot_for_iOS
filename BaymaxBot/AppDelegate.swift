@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
+    let topicName = "Baymax"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,9 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
-        
-        // トピック購読
-        //Messaging.messaging().subscribe(toTopic: "")
         
         // ApiAI設定
         let configuration: AIConfiguration = AIDefaultConfiguration()
@@ -66,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // トピック購読解除
+        Messaging.messaging().unsubscribe(fromTopic: topicName)
     }
     
     // バックグラウンド状態で通知を受信した際、通知をタップした時に呼ばれる
@@ -155,6 +155,9 @@ extension AppDelegate: MessagingDelegate {
         
         let dataDict:[String: String] = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        
+        // トピック購読
+        Messaging.messaging().subscribe(toTopic: topicName)
     }
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
