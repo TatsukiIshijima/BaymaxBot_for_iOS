@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
         
+        // トピック購読
+        //Messaging.messaging().subscribe(toTopic: "")
+        
         // ApiAI設定
         let configuration: AIConfiguration = AIDefaultConfiguration()
         configuration.clientAccessToken = KeyManager().getValue(key: "dialogflowToken") as? String 

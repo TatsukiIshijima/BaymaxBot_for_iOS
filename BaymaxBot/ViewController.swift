@@ -10,8 +10,9 @@ import UIKit
 import MessageKit
 import ApiAI
 import Firebase
+import UserNotifications
 
-class ViewController: MessagesViewController {
+class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     
     //var apiClient: ApiClient!
     //var userId: String?
@@ -36,6 +37,10 @@ class ViewController: MessagesViewController {
             print("Init Completed!!")
         })
         */
+        
+        // フォアグラウンドでの通知表示のため
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         
         self.navigationItem.title = "ベイマックス"
         let settingButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(tapSettingButton))
@@ -62,6 +67,13 @@ class ViewController: MessagesViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // フォアグラウンドで通知を受信時に呼ばれる
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let content = notification.request.content
+        print(content.userInfo)
+        completionHandler([.alert, .sound])
     }
     
     @objc func tapSettingButton() {
