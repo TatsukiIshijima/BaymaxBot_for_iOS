@@ -208,7 +208,13 @@ extension ViewController: MessagesDisplayDelegate {
             fatalError()
         }
         // 自分とそれ以外のユーザーでラベルの位置を調整
-        return dataSource.isFromCurrentSender(message: message) ? .messageTrailing(.zero) : .messageLeading(.zero)
+        return dataSource.isFromCurrentSender(message: message) ? .messageTrailing(UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 15)) : .messageLeading(UIEdgeInsets.init(top: 0, left: 15, bottom: 0, right: 0))
+    }
+    
+    // 吹き出しをつける
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+        return .bubbleTail(corner, .curved)
     }
 }
 
