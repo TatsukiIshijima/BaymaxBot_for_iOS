@@ -99,11 +99,13 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
                 .onTouchUpInside { _ in
                     print("Tapped Image")
                     // 画像送信テスト
-                    let sampleImage = UIImage(named: "Penguins")
-                    guard let image = sampleImage else { return }
-                    self.sendImage(image: image)
-                    self.replyMessage(replyText: "これはペンギンです。")
-                    // TODO:カメラスクロールから画像選択
+                    //let sampleImage = UIImage(named: "Penguins")
+                    //guard let image = sampleImage else { return }
+                    //self.sendImage(image: image)
+                    //self.replyMessage(replyText: "これはペンギンです。")
+                    // カメラロール起動
+                    let imagePickerController = UIImagePickerController()
+                    self.present(imagePickerController, animated: true, completion: nil)
                     // TODO:画像認識結果をテキストで返す
                 },
             makeInputBarButton(named: "ic_voice")
@@ -306,6 +308,18 @@ extension ViewController: MessageInputBarDelegate {
          print("ReplAITalkRequest Completed!!")
          })
          */
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // キャンセル時
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    // 写真選択時
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
     }
 }
 
