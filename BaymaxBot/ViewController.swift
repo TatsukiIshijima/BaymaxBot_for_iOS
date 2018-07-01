@@ -98,6 +98,13 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
             makeInputBarButton(named: "ic_image")
                 .onTouchUpInside { _ in
                     print("Tapped Image")
+                    // 画像送信テスト
+                    let sampleImage = UIImage(named: "Penguins")
+                    guard let image = sampleImage else { return }
+                    self.sendImage(image: image)
+                    self.replyMessage(replyText: "これはペンギンです。")
+                    // TODO:カメラスクロールから画像選択
+                    // TODO:画像認識結果をテキストで返す
                 },
             makeInputBarButton(named: "ic_voice")
                 .onTouchUpInside { _ in
@@ -151,6 +158,49 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
             }.onDeselected {
                 $0.tintColor = UIColor.lightGray
             }
+    }
+    
+    // 返信
+    func replyMessage(replyText: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            let replyMessage = MessageModel(text: replyText, sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
+            self.messageList.append(replyMessage)
+            self.messagesCollectionView.insertSections([self.messageList.count - 1])
+            self.messagesCollectionView.scrollToBottom()
+        })
+    }
+    
+    // Dialogflowによる返信
+    func replyMessageByDialogflow(inputText: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            // Dialogflow
+            let request = ApiAI.shared().textRequest()
+            if !inputText.isEmpty {
+                request?.query = inputText
+            }
+            request?.setMappedCompletionBlockSuccess({ (request, response) in
+                print("Success!")
+                let response = response as? AIResponse
+                if let textResponse = response?.result.fulfillment.messages {
+                    let textResponseArray = textResponse[0] as NSDictionary
+                    let replyMessage = MessageModel(text: textResponseArray.value(forKey: "speech") as! String, sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
+                    self.messageList.append(replyMessage)
+                    self.messagesCollectionView.insertSections([self.messageList.count - 1])
+                    self.messagesCollectionView.scrollToBottom()
+                }
+            }, failure: { (request, error) in
+                print("Failure...")
+            })
+            ApiAI.shared().enqueue(request)
+        })
+    }
+    
+    // 画像送信
+    func sendImage(image: UIImage) {
+        let messageImage = MessageModel(image: image, sender: self.currentSender(), messageId: UUID().uuidString, sentDate: Date())
+        self.messageList.append(messageImage)
+        self.messagesCollectionView.insertSections([self.messageList.count - 1])
+        self.messagesCollectionView.scrollToBottom()
     }
 }
 
@@ -234,47 +284,15 @@ extension ViewController: MessageCellDelegate {
 extension ViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        
-        for component in inputBar.inputTextView.components {
-            
-            if let image = component as? UIImage {
-                let imageMessage = MessageModel(image: image, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
-                messageList.append(imageMessage)
-                messagesCollectionView.insertSections([messageList.count - 1])
-            } else if let text = component as? String {
-                let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: defaultBlue])
-                let message = MessageModel(attributedText: attributedText, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
-                messageList.append(message)
-                messagesCollectionView.insertSections([messageList.count - 1])
-            }
-        }
+        print("didPressSendButton : \(text)")
+        let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: defaultBlue])
+        let message = MessageModel(attributedText: attributedText, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
+        messageList.append(message)
+        messagesCollectionView.insertSections([messageList.count - 1])
         inputBar.inputTextView.text = String()
         messagesCollectionView.scrollToBottom()
         
-        // 返信
-        /*
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            // Dialogflow
-            let request = ApiAI.shared().textRequest()
-            if text != "" {
-                request?.query = text
-            }
-            request?.setMappedCompletionBlockSuccess({ (request, response) in
-                print("Success!")
-                let response = response as? AIResponse
-                if let textResponse = response?.result.fulfillment.messages {
-                    let textResponseArray = textResponse[0] as NSDictionary
-                    let replyMessage = MessageModel(text: textResponseArray.value(forKey: "speech") as! String, sender: self.baymaxSender, messageId: UUID().uuidString, sentDate: Date())
-                    self.messageList.append(replyMessage)
-                    self.messagesCollectionView.insertSections([self.messageList.count - 1])
-                    self.messagesCollectionView.scrollToBottom()
-                }
-            }, failure: { (request, error) in
-                print("Failure...")
-            })
-            ApiAI.shared().enqueue(request)
-        })
-        */
+        self.replyMessageByDialogflow(inputText: text)
         
         /* ReplAIの対話API実行
          guard let userId = self.userId else {
