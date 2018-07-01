@@ -89,15 +89,20 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         messageInputBar.inputTextView.backgroundColor = .clear
         messageInputBar.inputTextView.layer.borderWidth = 0
         let items = [
-            makeInputBarButton(named: "ic_camera").onTextViewDidChange { button, textView in
-                button.isEnabled = textView.text.isEmpty
-            },
-            makeInputBarButton(named: "ic_image").onSelected {
-                $0.tintColor = self.defaultBlue
-            },
-            makeInputBarButton(named: "ic_voice").onSelected {
-                $0.tintColor = self.defaultBlue
-            },
+            makeInputBarButton(named: "ic_camera")
+                .onTextViewDidChange { button, textView in
+                    button.isEnabled = textView.text.isEmpty
+                }.onTouchUpInside { _ in
+                    print("Tapped Camera")
+                },
+            makeInputBarButton(named: "ic_image")
+                .onTouchUpInside { _ in
+                    print("Tapped Image")
+                },
+            makeInputBarButton(named: "ic_voice")
+                .onTouchUpInside { _ in
+                    print("Tapped Voice")
+                },
             messageInputBar.sendButton
                 .configure {
                     $0.layer.cornerRadius = 8
@@ -145,9 +150,6 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
                 $0.tintColor = self.defaultBlue
             }.onDeselected {
                 $0.tintColor = UIColor.lightGray
-            }.onTouchUpInside { _ in
-                print("Item tapped")
-                // TODO:画像や音声認識の結果をmessageListに追加したらreload()すれば送信したこととなる？
             }
     }
 }
@@ -250,6 +252,7 @@ extension ViewController: MessageInputBarDelegate {
         messagesCollectionView.scrollToBottom()
         
         // 返信
+        /*
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             // Dialogflow
             let request = ApiAI.shared().textRequest()
@@ -271,6 +274,7 @@ extension ViewController: MessageInputBarDelegate {
             })
             ApiAI.shared().enqueue(request)
         })
+        */
         
         /* ReplAIの対話API実行
          guard let userId = self.userId else {
