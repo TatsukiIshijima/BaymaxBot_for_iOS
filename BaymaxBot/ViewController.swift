@@ -93,19 +93,28 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         messageInputBar.isTranslucent = false
         messageInputBar.inputTextView.backgroundColor = .clear
         messageInputBar.inputTextView.layer.borderWidth = 0
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        
         let items = [
             makeInputBarButton(named: "ic_camera")
                 .onTextViewDidChange { button, textView in
                     button.isEnabled = textView.text.isEmpty
                 }.onTouchUpInside { _ in
                     print("Tapped Camera")
+                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        print("Use Camera")
+                        // カメラ起動
+                        imagePickerController.sourceType = .camera
+                        self.present(imagePickerController, animated: true, completion: nil)
+                    }
                 },
             makeInputBarButton(named: "ic_image")
                 .onTouchUpInside { _ in
                     print("Tapped Image")
                     // カメラロール起動
-                    let imagePickerController = UIImagePickerController()
-                    imagePickerController.delegate = self
+                    imagePickerController.sourceType = .photoLibrary
                     self.present(imagePickerController, animated: true, completion: nil)
                 },
             makeInputBarButton(named: "ic_voice")
@@ -331,7 +340,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         self.dismiss(animated: true)
     }
     
-    // 写真選択時
+    // 写真選択時 or 写真撮影時
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Choose image from Garally.")
         let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
