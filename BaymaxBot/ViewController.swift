@@ -324,7 +324,18 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Choose image from Garally.")
         let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        print("Image Size : \(pickedImage?.size)")
+        guard let image = pickedImage else { return }
+        // 一定のサイズになるまでリサイズをかける
+        if image.size.width > 500 || image.size.height > 500 {
+            for scale in 1...10 {
+                let resizedImage = image.scaleImage(scaleSize: CGFloat(scale) * 0.1)
+                if resizedImage.size.width < 500 || resizedImage.size.height < 500 {
+                    print("Image Resize : \(resizedImage.size)")
+                    self.sendImage(image: resizedImage)
+                    break
+                }
+            }
+        }
         self.dismiss(animated: true)
     }
 }
