@@ -103,8 +103,10 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
                     //guard let image = sampleImage else { return }
                     //self.sendImage(image: image)
                     //self.replyMessage(replyText: "これはペンギンです。")
+                    
                     // カメラロール起動
                     let imagePickerController = UIImagePickerController()
+                    imagePickerController.delegate = self
                     self.present(imagePickerController, animated: true, completion: nil)
                     // TODO:画像認識結果をテキストで返す
                 },
@@ -314,12 +316,16 @@ extension ViewController: MessageInputBarDelegate {
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // キャンセル時
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        print("Choose image cancel.")
+        self.dismiss(animated: true)
     }
     
     // 写真選択時
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        print("Choose image from Garally.")
+        let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        print("Image Size : \(pickedImage?.size)")
+        self.dismiss(animated: true)
     }
 }
 
