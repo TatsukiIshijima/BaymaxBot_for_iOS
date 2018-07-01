@@ -11,6 +11,7 @@ import MessageKit
 import ApiAI
 import Firebase
 import UserNotifications
+import RxSwift
 
 class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     
@@ -22,6 +23,9 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     let baymaxAvator = Avatar(image: UIImage(named: "img_baymax"), initials: "ベイマックス")
     let defaultBlue = UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1)
     var messageList: [MessageModel] = []
+    
+    let sendImageEventSubject = PublishSubject<Int>()
+    var sendImageEvent: Observable<Int> { return sendImageEventSubject }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +68,7 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
                 self.messagesCollectionView.scrollToBottom()
             }
         }
+        receivedImage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,17 +103,10 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
             makeInputBarButton(named: "ic_image")
                 .onTouchUpInside { _ in
                     print("Tapped Image")
-                    // 画像送信テスト
-                    //let sampleImage = UIImage(named: "Penguins")
-                    //guard let image = sampleImage else { return }
-                    //self.sendImage(image: image)
-                    //self.replyMessage(replyText: "これはペンギンです。")
-                    
                     // カメラロール起動
                     let imagePickerController = UIImagePickerController()
                     imagePickerController.delegate = self
                     self.present(imagePickerController, animated: true, completion: nil)
-                    // TODO:画像認識結果をテキストで返す
                 },
             makeInputBarButton(named: "ic_voice")
                 .onTouchUpInside { _ in
@@ -205,6 +203,19 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         self.messageList.append(messageImage)
         self.messagesCollectionView.insertSections([self.messageList.count - 1])
         self.messagesCollectionView.scrollToBottom()
+        self.sendImageEventSubject.onNext(1)
+    }
+    
+    // 画像受信
+    func receivedImage() {
+        // TODO:画像認識結果をテキストで返す
+        self.sendImageEventSubject.subscribe(onNext: { value in
+            self.replyMessage(replyText: "これはペンギンです。")
+        }, onError: { error in
+            print("ReceivedImage Error: \(error)")
+        }, onCompleted: {
+        
+        })
     }
 }
 
