@@ -15,8 +15,12 @@ import RxSwift
 
 class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     
-    //var apiClient: ApiClient!
-    //var userId: String?
+    lazy var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
+    
     let userSender = Sender(id: "000000", displayName: "ユーザー")
     let baymaxSender = Sender(id: "111111", displayName: "ベイマックス")
     let userAvator = Avatar(image: UIImage(named: "img_default"), initials: "ユーザー")
@@ -29,19 +33,6 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /* ReplAI APIの初期化
-        self.apiClient = ApiClient()
-        self.apiClient.replAiInitRequestRx().subscribe(onNext: { (userId) in
-            self.userId = userId.userId
-            self.apiClient.replAiTalkRequestRx(appUserId: userId.userId!, voiceText: "init", initFlag: true).subscribe(onNext: { (replModel) in
-                self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
-            })
-        }, onError: { (error) in
-            print(error)
-        }, onCompleted: {
-            print("Init Completed!!")
-        })
-        */
         
         // フォアグラウンドでの通知表示のため
         let center = UNUserNotificationCenter.current()
@@ -223,13 +214,17 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         }, onError: { error in
             print("ReceivedImage Error: \(error)")
         }, onCompleted: {
-        
+            
         })
     }
 }
 
 // 送信元、メッセージ、日付などのデータ作成
 extension ViewController: MessagesDataSource {
+    
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return self.messageList.count
+    }
     
     func currentSender() -> Sender {
         return self.userSender
@@ -243,9 +238,16 @@ extension ViewController: MessagesDataSource {
         return self.messageList.count
     }
     
+    // メッセージ上のテキスト
+    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        let name = message.sender.displayName
+        return NSAttributedString(string: name, attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption1)])
+    }
+    
     // メッセージ下のテキスト
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedStringKey.foregroundColor: UIColor.darkGray])
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        let dateString = formatter.string(from: message.sentDate)
+        return NSAttributedString(string: dateString, attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
 }
 
@@ -278,15 +280,6 @@ extension ViewController: MessagesDisplayDelegate {
         }
     }
     
-    // メッセージ下のラベル位置調整
-    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
-        guard let dataSource = messagesCollectionView.messagesDataSource else {
-            fatalError()
-        }
-        // 自分とそれ以外のユーザーでラベルの位置を調整
-        return dataSource.isFromCurrentSender(message: message) ? .messageTrailing(UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 15)) : .messageLeading(UIEdgeInsets.init(top: 0, left: 15, bottom: 0, right: 0))
-    }
-    
     // 吹き出しをつける
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
@@ -296,8 +289,19 @@ extension ViewController: MessagesDisplayDelegate {
 
 extension ViewController: MessagesLayoutDelegate {
     
-    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 240
+    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        if indexPath.section % 3 == 0 {
+            return 10
+        }
+        return 0
+    }
+    
+    func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 16
+    }
+    
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 16
     }
 }
 
@@ -309,7 +313,7 @@ extension ViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         print("didPressSendButton : \(text)")
-        let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: defaultBlue])
+        let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.white])
         let message = MessageModel(attributedText: attributedText, sender: currentSender(), messageId: UUID().uuidString, sentDate: Date())
         messageList.append(message)
         messagesCollectionView.insertSections([messageList.count - 1])
@@ -317,19 +321,6 @@ extension ViewController: MessageInputBarDelegate {
         messagesCollectionView.scrollToBottom()
         
         self.replyMessageByDialogflow(inputText: text)
-        
-        /* ReplAIの対話API実行
-         guard let userId = self.userId else {
-         return
-         }
-         self.apiClient.replAiTalkRequestRx(appUserId: userId, voiceText: text, initFlag: false).subscribe(onNext: { (replModel) in
-         self.receiveAutoMessage(text: (replModel.systemText?.expression)!)
-         }, onError: { (error) in
-         print(error)
-         }, onCompleted: {
-         print("ReplAITalkRequest Completed!!")
-         })
-         */
     }
 }
 
@@ -345,7 +336,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         print("Choose image from Garally.")
         let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         guard let image = pickedImage else { return }
+        self.sendImage(image: image)
         // 一定のサイズになるまでリサイズをかける
+        /*
         if image.size.width > 500 || image.size.height > 500 {
             for scale in 1...10 {
                 let resizedImage = image.scaleImage(scaleSize: CGFloat(scale) * 0.1)
@@ -356,6 +349,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 }
             }
         }
+         */
         self.dismiss(animated: true)
     }
 }
