@@ -4,6 +4,10 @@
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>カメラロール閲覧</string>
+	<key>NSCameraUsageDescription</key>
+	<string>カメラ許可</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>カメラ許可</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
