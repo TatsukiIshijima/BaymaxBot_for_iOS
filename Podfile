@@ -11,8 +11,10 @@ target 'BaymaxBot' do
   pod 'RxCocoa'
   pod 'Alamofire'
   pod 'ObjectMapper'
+  pod 'ApiAI'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
-  pod 'ApiAI'
+  pod 'Firebase/MLVision'
+  pod 'Firebase/MLVisionLabelModel'
 end
