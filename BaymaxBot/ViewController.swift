@@ -28,8 +28,8 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
     let defaultBlue = UIColor(red: 0, green: 122 / 255, blue: 1, alpha: 1)
     var messageList: [MessageModel] = []
     
-    let sendImageEventSubject = PublishSubject<Int>()
-    var sendImageEvent: Observable<Int> { return sendImageEventSubject }
+    let sendImageEventSubject = PublishSubject<UIImage>()
+    var sendImageEvent: Observable<UIImage> { return sendImageEventSubject }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,14 +203,36 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         self.messageList.append(messageImage)
         self.messagesCollectionView.insertSections([self.messageList.count - 1])
         self.messagesCollectionView.scrollToBottom()
-        self.sendImageEventSubject.onNext(1)
+        self.sendImageEventSubject.onNext(image)
     }
     
     // 画像受信
     func receivedImage() {
-        // TODO:画像認識結果をテキストで返す
-        self.sendImageEventSubject.subscribe(onNext: { value in
-            self.replyMessage(replyText: "これはペンギンです。")
+        // 閾値を設定
+        let options = VisionLabelDetectorOptions(confidenceThreshold: 0.5)
+        let vision = Vision.vision()
+        let labelDetector = vision.labelDetector(options: options)
+        // 画像認識結果をテキストで返す
+        self.sendImageEventSubject.subscribe(onNext: { image in
+            let visionImage = VisionImage(image: image)
+            labelDetector.detect(in: visionImage) { features, error in
+                guard error == nil, let features = features, !features.isEmpty else {
+                    return
+                }
+                for feature in features {
+                    let labelText = feature.label
+                    let entityId = feature.entityID
+                    let confidence = feature.confidence
+                    print("Label : \(labelText)   Entity ID : \(entityId)  Confidence : \(confidence)")
+                    if confidence >= 0.75 {
+                        self.replyMessage(replyText: "これは '\(labelText)' ですね。")
+                        break
+                    } else {
+                        self.replyMessage(replyText: "すみません。ちょっとよくわかりませんでした…")
+                        break
+                    }
+                }
+            }
         }, onError: { error in
             print("ReceivedImage Error: \(error)")
         }, onCompleted: {
