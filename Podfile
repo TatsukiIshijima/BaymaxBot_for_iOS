@@ -12,6 +12,7 @@ target 'BaymaxBot' do
   pod 'Alamofire'
   pod 'ObjectMapper'
   pod 'ApiAI'
+  pod 'SVProgressHUD'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
