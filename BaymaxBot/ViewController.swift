@@ -61,6 +61,11 @@ class ViewController: MessagesViewController, UNUserNotificationCenterDelegate {
         }
         receivedImage()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.sendImageEventSubject.dispose()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -359,19 +364,6 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         guard let image = pickedImage else { return }
         self.sendImage(image: image)
-        // 一定のサイズになるまでリサイズをかける
-        /*
-        if image.size.width > 500 || image.size.height > 500 {
-            for scale in 1...10 {
-                let resizedImage = image.scaleImage(scaleSize: CGFloat(scale) * 0.1)
-                if resizedImage.size.width < 500 || resizedImage.size.height < 500 {
-                    print("Image Resize : \(resizedImage.size)")
-                    self.sendImage(image: resizedImage)
-                    break
-                }
-            }
-        }
-         */
         self.dismiss(animated: true)
     }
 }
