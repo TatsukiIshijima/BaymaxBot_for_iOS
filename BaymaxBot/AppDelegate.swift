@@ -17,17 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var center: UNUserNotificationCenter?
+    var locationManager: CLLocationManager?
+    var beaconRegion: CLBeaconRegion?
     let gcmMessageIDKey = "gcm.message_id"
     let topicName = "Baymax"
+    let uuidString = "1E21BCE0-7655-4647-B492-A3F8DE2F9A02"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
         // Navigationbar設定
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: ViewController())
         window?.makeKeyAndVisible()
-        
         // Firebase設定
         FirebaseApp.configure()
         // Push通知設定（FCM）
@@ -48,6 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("通知拒否")
             }
         })
+        // Beacon設定
+        self.locationManager = CLLocationManager()
+        guard let manager = self.locationManager else {
+            return false
+        }
+        let uuid = UUID(uuidString: self.uuidString)
+        guard let _uuid = uuid else {
+            return false
+        }
+        self.beaconRegion = CLBeaconRegion.init(proximityUUID: _uuid, major: 0, minor: 0, identifier: "Home")
+        guard let region = self.beaconRegion else {
+            return false
+        }
+        region.notifyOnEntry = true
+        region.notifyOnExit = true
+        region.notifyEntryStateOnDisplay = true
+        manager.delegate = self
+        manager.startMonitoring(for: region)
         // ApiAI設定
         let configuration: AIConfiguration = AIDefaultConfiguration()
         configuration.clientAccessToken = KeyManager().getValue(key: "dialogflowToken") as? String 
@@ -111,11 +129,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         content.title = title;
         content.body = message;
         content.sound = UNNotificationSound.default()
-        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 3, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest.init(identifier: "TestNotification", content: content, trigger: trigger)
         center.add(request)
     }
 }
+
+// MARK UNUserNotificationCenterDelegate
 
 @available(iOS 10, *)
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -127,6 +147,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.alert, .sound])
     }
 }
+
+// MARK MessagingDelegate
 
 extension AppDelegate: MessagingDelegate {
     
@@ -142,6 +164,32 @@ extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         print("Received data message: \(remoteMessage.appData)")
+    }
+}
+
+// MARK CLLocationManagerDelegate Methods
+
+extension AppDelegate: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print("DidStartMonitoring")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        sendNotification(title: "外出のお知らせ", message: "いってらっしゃい。")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        sendNotification(title: "帰宅のお知らせ", message: "おかえりなさい。")
+        // TODO:通知をタップした時に機器の操作するとか？
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("MonitoringDidFail : \(error)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("DidFailWithError : \(error)")
     }
 }
 
