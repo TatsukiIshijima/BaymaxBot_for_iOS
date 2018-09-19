@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import ApiAI
 import UserNotifications
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var center: UNUserNotificationCenter?
     let gcmMessageIDKey = "gcm.message_id"
     let topicName = "Baymax"
 
@@ -29,7 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Firebase設定
         FirebaseApp.configure()
         // Push通知設定（FCM）
-        let center = UNUserNotificationCenter.current()
+        self.center = UNUserNotificationCenter.current()
+        guard let center = self.center else {
+            return false
+        }
         center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: {(granted, error) in
             if error != nil {
                 return
@@ -95,6 +100,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("APNs token retrieved: \(deviceToken)")
         Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    // ローカル通知
+    func sendNotification(title: String, message: String) {
+        guard let center = self.center else {
+            return
+        }
+        let content = UNMutableNotificationContent()
+        content.title = title;
+        content.body = message;
+        content.sound = UNNotificationSound.default()
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 3, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "TestNotification", content: content, trigger: trigger)
+        center.add(request)
     }
 }
 
