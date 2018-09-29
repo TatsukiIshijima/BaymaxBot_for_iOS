@@ -24,10 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let uuidString = "1E21BCE0-7655-4647-B492-A3F8DE2F9A02"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Navigationbar設定
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: ViewController())
-        window?.makeKeyAndVisible()
         // Firebase設定
         FirebaseApp.configure()
         // Push通知設定（FCM）

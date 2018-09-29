@@ -10,6 +10,7 @@
 		69E078EFCFB9491412EA6DF2 /* Pods_BaymaxBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */; };
 		8F01F567209990270003C69D /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F01F566209990270003C69D /* Forecast.swift */; };
 		8F1AF33120D4D5EE00F3A4A7 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */; };
+		8F20B334215F62C5002213E9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20B333215F62C5002213E9 /* SettingsViewController.swift */; };
 		8F3DD53020E8A95A009B09E8 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DD52F20E8A95A009B09E8 /* ImageUtil.swift */; };
 		8F44E7BF209D730200056A78 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F44E7BE209D730200056A78 /* Keys.plist */; };
 		8F44E7C2209D73AF00056A78 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F44E7C1209D73AF00056A78 /* KeyManager.swift */; };
@@ -31,6 +32,7 @@
 		12C6D1F16AF0C23FF5BCA054 /* Pods_BaymaxBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BaymaxBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F01F566209990270003C69D /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		8F1AF33020D4D5EE00F3A4A7 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		8F20B333215F62C5002213E9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8F3C14BD20E2700600A73673 /* BaymaxBot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BaymaxBot.entitlements; sourceTree = "<group>"; };
 		8F3DD52F20E8A95A009B09E8 /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		8F44E7BE209D730200056A78 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				8FE87BE320941C5E00628949 /* Info.plist */,
 				8F44E7BE209D730200056A78 /* Keys.plist */,
 				8F98E97520C3E2EE00E2CF9D /* GoogleService-Info.plist */,
+				8F20B333215F62C5002213E9 /* SettingsViewController.swift */,
 			);
 			path = BaymaxBot;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				8FEE40942095E7090091CBE4 /* Description.swift in Sources */,
 				8FEE408B20959B100091CBE4 /* WeatherModel.swift in Sources */,
 				8F1AF33120D4D5EE00F3A4A7 /* MessageModel.swift in Sources */,
+				8F20B334215F62C5002213E9 /* SettingsViewController.swift in Sources */,
 				8F44E7C5209D86AC00056A78 /* ReplModel.swift in Sources */,
 				8FEE40912095C3E70091CBE4 /* ApiClient.swift in Sources */,
 			);
@@ -478,7 +482,10 @@
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -496,7 +503,10 @@
 				DEVELOPMENT_TEAM = 2F6D29Y538;
 				INFOPLIST_FILE = BaymaxBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = jp.io.tatsuki.BaymaxBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -34,10 +34,6 @@ class ViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "ベイマックス"
-        let settingButton = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(tapSettingButton))
-        self.navigationItem.setRightBarButton(settingButton, animated: true)
-        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -65,11 +61,6 @@ class ViewController: MessagesViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    @objc func tapSettingButton() {
-        let token = Messaging.messaging().fcmToken
-        print("FCM token: \(token ?? "")")
     }
     
     // 入力バー作成
