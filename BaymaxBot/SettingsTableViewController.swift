@@ -45,15 +45,23 @@ class SettingsTableViewController: UITableViewController {
         }
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                
+                break
+            default:
+                break
+            }
+            break
+        default:
+            break
+        }
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
