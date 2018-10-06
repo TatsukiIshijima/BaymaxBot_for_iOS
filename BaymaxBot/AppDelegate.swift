@@ -139,7 +139,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // フォアグラウンドで通知を受け取った時
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("userNotificationCenter : willPresent")
-        // バッジを設定すると通知バナーが表示されない…
         completionHandler([.alert, .sound])
     }
 }
