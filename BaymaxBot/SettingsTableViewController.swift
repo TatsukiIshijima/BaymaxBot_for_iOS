@@ -99,19 +99,6 @@ class SettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                
-                break
-            default:
-                break
-            }
-            break
-        default:
-            break
-        }
         return cell
     }
     
@@ -136,52 +123,52 @@ class SettingsTableViewController: UITableViewController {
             if let tag = swicthButtonTag(rawValue: switchButton.tag) {
                 switch tag {
                 case .tvPower:
-                    print("TVPower")
+                    self.ref.child("tv/power").setValue(tvPowerSwitch.isOn)
                     break
                 case .nhkChannel:
-                    print("NHK")
+                    self.ref.child("tv/channel/nhk").setValue(nhkSwitch.isOn)
                     break
                 case .eTVCahnnel:
-                    print("ETV")
+                    self.ref.child("tv/channel/nhk_e").setValue(etvSwitch.isOn)
                     break
                 case .localCannel:
-                    print("LocalTV")
+                    self.ref.child("tv/channel/local").setValue(localSwitch.isOn)
                     break
                 case .nihonChannel:
-                    print("NihonTV")
+                    self.ref.child("tv/channel/nihon").setValue(nihonSwitch.isOn)
                     break
                 case .asahiChannel:
-                    print("AsahiTV")
+                    self.ref.child("tv/channel/asahi").setValue(asahiSwitch.isOn)
                     break
                 case .tbsChannel:
-                    print("TBS")
+                    self.ref.child("tv/channel/tbs").setValue(tbsSwitch.isOn)
                     break
                 case .tokyoChannel:
-                    print("TokyoTV")
+                    self.ref.child("tv/channel/tokyo").setValue(tokyoSwitch.isOn)
                     break
                 case .fujiChannnel:
-                    print("FujiTV")
+                    self.ref.child("tv/channel/fuji").setValue(fujiSwitch.isOn)
                     break
                 case .lightPower:
-                    print("LightPower")
+                    self.ref.child("light/power").setValue(lightPowerSwitch.isOn)
                     break
                 case .brightUp:
-                    print("BrightUp")
+                    self.ref.child("light/bright_up").setValue(brightUpSwitch.isOn)
                     break
                 case .brightDown:
-                    print("BrightDown")
+                    self.ref.child("light/bright_down").setValue(brightDownSwitch.isOn)
                     break
                 case .warmer:
-                    print("ColorWarmer")
+                    self.ref.child("light/warmer").setValue(lightWarmerSwitch.isOn)
                     break
                 case .cooler:
-                    print("ColorCooler")
+                    self.ref.child("light/cooler").setValue(lightCoolerSwitch.isOn)
                     break
                 case .airconPower:
-                    print("AirconPower")
+                    self.ref.child("aircon/power").setValue(airconPowerSwitch.isOn)
                     break
                 case .fanPower:
-                    print("FanPower")
+                    self.ref.child("fan/power").setValue(fanPowerSwitch.isOn)
                     break
                 case .beacon:
                     print("Beacon")
