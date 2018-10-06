@@ -37,7 +37,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="トーク" id="OrL-NP-QWK">
-                        <barButtonItem key="rightBarButtonItem" title="設定" id="s7Q-sf-OG8">
+                        <barButtonItem key="rightBarButtonItem" title="デバッグ" id="s7Q-sf-OG8">
                             <connections>
                                 <segue destination="v7T-cM-JHn" kind="show" id="Bqo-f3-up3"/>
                             </connections>
@@ -644,6 +644,25 @@
                             <outlet property="delegate" destination="v7T-cM-JHn" id="MaQ-DX-zsC"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="airconPowerSwitch" destination="iOz-0Z-11E" id="euO-WY-ZJ8"/>
+                        <outlet property="asahiSwitch" destination="sBS-Cm-B6N" id="MzH-Ay-BpD"/>
+                        <outlet property="beaconSwitch" destination="Bb7-CN-wT3" id="Ine-N5-7mI"/>
+                        <outlet property="brightDownSwitch" destination="hDw-tQ-cat" id="T5q-ZJ-tBr"/>
+                        <outlet property="brightUpSwitch" destination="oXm-qA-lmP" id="NB5-cV-tvy"/>
+                        <outlet property="etvSwitch" destination="wHh-y3-hRI" id="0UF-iW-3aI"/>
+                        <outlet property="fanPowerSwitch" destination="2la-d8-dEf" id="zIV-4M-MCM"/>
+                        <outlet property="fujiSwitch" destination="FzT-Gs-gIv" id="su5-cS-h8A"/>
+                        <outlet property="lightCoolerSwitch" destination="fGd-iJ-xT4" id="0CU-e0-ilK"/>
+                        <outlet property="lightPowerSwitch" destination="PLX-uO-1PI" id="ej3-Kk-8Ce"/>
+                        <outlet property="lightWarmerSwitch" destination="qab-LQ-lVo" id="mtc-Ou-V13"/>
+                        <outlet property="localSwitch" destination="yz4-Gv-ZS9" id="y8x-TO-vnk"/>
+                        <outlet property="nhkSwitch" destination="qJ4-8d-86R" id="27b-ab-AGm"/>
+                        <outlet property="nihonSwitch" destination="Gic-oU-ERA" id="hDJ-V2-SQg"/>
+                        <outlet property="tbsSwitch" destination="HT0-xF-6lX" id="SG4-lz-sGa"/>
+                        <outlet property="tokyoSwitch" destination="08M-aK-VX7" id="OaY-Pa-fah"/>
+                        <outlet property="tvPowerSwitch" destination="Plw-0b-YOQ" id="MJZ-dG-Mx0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybh-gt-7ws" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Jt5-Bz-5Kc" userLabel="Exit" sceneMemberID="exit"/>

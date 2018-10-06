@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsTableViewController: UITableViewController {
     
@@ -29,10 +30,47 @@ class SettingsTableViewController: UITableViewController {
         case fanPower = 15
         case beacon = 16
     }
-
+    
+    var ref: DatabaseReference!
+    
+    @IBOutlet weak var tvPowerSwitch: UISwitch!
+    @IBOutlet weak var nhkSwitch: UISwitch!
+    @IBOutlet weak var etvSwitch: UISwitch!
+    @IBOutlet weak var localSwitch: UISwitch!
+    @IBOutlet weak var nihonSwitch: UISwitch!
+    @IBOutlet weak var asahiSwitch: UISwitch!
+    @IBOutlet weak var tbsSwitch: UISwitch!
+    @IBOutlet weak var tokyoSwitch: UISwitch!
+    @IBOutlet weak var fujiSwitch: UISwitch!
+    @IBOutlet weak var lightPowerSwitch: UISwitch!
+    @IBOutlet weak var brightUpSwitch: UISwitch!
+    @IBOutlet weak var brightDownSwitch: UISwitch!
+    @IBOutlet weak var lightWarmerSwitch: UISwitch!
+    @IBOutlet weak var lightCoolerSwitch: UISwitch!
+    @IBOutlet weak var airconPowerSwitch: UISwitch!
+    @IBOutlet weak var fanPowerSwitch: UISwitch!
+    @IBOutlet weak var beaconSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "設定"
+        self.navigationItem.title = "デバッグ"
+        
+        self.ref = Database.database().reference()
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "nhk", switchButton: nhkSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "nhk_e", switchButton: etvSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "local", switchButton: localSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "nihon", switchButton: nihonSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "asahi", switchButton: asahiSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "tbs", switchButton: tbsSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "tokyo", switchButton: tokyoSwitch)
+        setSwitchButtonbyGrandson(rootPath: "tv", childPath: "channel", grandSonPath: "fuji", switchButton: fujiSwitch)
+        setSwicthButtonbyChildren(rootPath: "light", childPath: "power", switchButton: lightPowerSwitch)
+        setSwicthButtonbyChildren(rootPath: "light", childPath: "bright_up", switchButton: brightUpSwitch)
+        setSwicthButtonbyChildren(rootPath: "light", childPath: "bright_down", switchButton: brightDownSwitch)
+        setSwicthButtonbyChildren(rootPath: "light", childPath: "warmer", switchButton: lightWarmerSwitch)
+        setSwicthButtonbyChildren(rootPath: "light", childPath: "cooler", switchButton: lightCoolerSwitch)
+        setSwicthButtonbyChildren(rootPath: "aircon", childPath: "power", switchButton: airconPowerSwitch)
+        setSwicthButtonbyChildren(rootPath: "fan", childPath: "power", switchButton: fanPowerSwitch)
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +113,22 @@ class SettingsTableViewController: UITableViewController {
             break
         }
         return cell
+    }
+    
+    func setSwicthButtonbyChildren(rootPath: String, childPath: String, switchButton: UISwitch) {
+        self.ref.child(rootPath).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let flag = value?[childPath] as? Bool ?? false
+            switchButton.setOn(flag, animated: false)
+        })
+    }
+    
+    func setSwitchButtonbyGrandson(rootPath: String, childPath: String, grandSonPath: String, switchButton: UISwitch) {
+        self.ref.child(rootPath).child(childPath).observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let flag = value?[grandSonPath] as? Bool ?? false
+            switchButton.setOn(flag, animated: false)
+        })
     }
     
     @IBAction func switchAction(_ sender: Any) {
